@@ -10,12 +10,17 @@ allowed-tools: Bash(gh:*), Bash(git:*), Read, Grep, Glob
 
 # pr-review
 
+Análise **estática**: lê regras + diff + arquivos. Nunca sobe app, Docker, banco
+ou servidor, e não precisa entender o runtime do projeto — só se o código segue
+os patterns definidos.
+
 ## 1. Carregar as regras do projeto (nesta ordem, todas que existirem)
 1. `.claude/review-rules.md` — regras específicas (fonte principal)
 2. `CLAUDE.md`, `CONTRIBUTING.md`, `docs/adr/*`, `docs/architecture*`
 3. Configs: eslint, tsconfig, prettier (o que a ferramenta já pega, não comente)
-4. Se nada existir: use `reference/generic-checklist.md` e avise o usuário que
-   vale rodar `/project-skill-bootstrap`.
+4. Se nada existir: use o modelo da stack em `reference/stacks/`
+   (`nestjs.md`, `spring.md`, `react.md`), ou `reference/generic-checklist.md`, e
+   avise que vale rodar `/project-skill-bootstrap`.
 
 ## 2. Obter o diff
 - PR: `gh pr view <n> --json title,body,files,baseRefName` e `gh pr diff <n>`

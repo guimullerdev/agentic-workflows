@@ -11,13 +11,17 @@ description: >-
 # project-skill-bootstrap
 
 ## 1. Levantar fatos (use um subagent Explore/haiku para leitura ampla)
-- Stack, gerenciador de pacotes, comandos de dev/test/lint/build.
+- Stack e framework (NestJS, Spring, React...), comandos de teste e lint.
 - Estrutura de pastas e camadas (ex.: `packages/*`, `src/features/*`).
 - Padrões reais: estado, fetch, estilos, testes, nomes. Cite 1 arquivo exemplo de cada.
 - Convenções de git: branches, commits, template de PR, CI.
 - Regras já escritas: CONTRIBUTING, ADRs, lint configs.
 
-## 2. Gerar (a partir de `templates/project/` deste repo)
+Não suba o app, Docker ou banco: o objetivo são os patterns do código.
+
+## 2. Gerar (a partir de `templates/` deste repo)
+- Parta do modelo da stack em `reference/stacks/<stack>.md` (nestjs, spring, react) e ajuste ao que
+  o código realmente faz.
 - `CLAUDE.md` — ≤ 60 linhas: comandos, mapa da arquitetura, regras.
 - `.claude/review-rules.md` — usado pela skill global `pr-review`:
   camadas e imports permitidos, patterns obrigatórios (com arquivo exemplo),

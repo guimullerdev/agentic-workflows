@@ -19,6 +19,7 @@ agents/                  # subagents (instaláveis em ~/.claude/agents)
   architect.md           # opus   — design, dados, decisões difíceis
   pr-reviewer.md         # revisão read-only
 templates/project/       # esqueleto .claude/ para colar num projeto novo
+templates/review-rules/  # regras de PR por stack: nestjs.md, spring.md, react.md
 docs/best-practices/     # guias: skills, subagents, worktrees, seleção de modelo, workflows
 notes/                   # avaliações de projetos (ex.: notebook-monitor)
 scripts/install.sh       # symlink de skills/agents para ~/.claude
@@ -32,6 +33,13 @@ scripts/install.sh       # symlink de skills/agents para ~/.claude
 ```
 
 Symlinks: editou aqui, vale em todo lugar.
+
+## Review por projeto
+
+A skill `pr-review` é uma só; o que muda é `<projeto>/.claude/review-rules.md`.
+Comece copiando o modelo da stack (`templates/review-rules/`) ou rode
+`/project-skill-bootstrap` no projeto. O review é estático: lê regras + diff,
+nunca sobe app, Docker ou banco.
 
 ## Fluxo principal
 

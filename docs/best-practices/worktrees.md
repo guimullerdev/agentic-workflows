@@ -15,8 +15,5 @@ No Claude Code: `isolation: "worktree"` no Agent tool, ou `claude --worktree`.
 1. **Uma tarefa = uma worktree = uma branch = um PR.**
 2. Divida por **fronteira de arquivos**: se duas tarefas tocam o mesmo arquivo,
    não são paralelas — serialize.
-3. Instale dependências em cada worktree (`node_modules` não é compartilhado),
-   ou use pnpm/yarn com cache.
-4. Portas: dev servers em paralelo precisam de portas diferentes (`PORT=...`).
-5. Integração: faça merge dos PRs em ordem de dependência; rebase o resto.
-6. Limpe: `git worktree prune` depois do merge.
+3. Integração: faça merge dos PRs em ordem de dependência; rebase o resto.
+4. Limpe: `git worktree prune` depois do merge.

@@ -3,7 +3,6 @@
 <1 frase: o que é.>
 
 ## Comandos
-- Dev: `...`
 - Teste: `...`
 - Lint/typecheck: `...`
 
