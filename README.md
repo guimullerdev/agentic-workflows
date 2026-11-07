@@ -43,11 +43,47 @@ nunca sobe app, Docker ou banco.
 
 ## Fluxo principal
 
-1. Projeto tem um `docs/PLANO.md` com fases.
-2. `/run-phase 1 2` → o `phase-planner` lê as fases, quebra em tarefas e classifica
-   cada uma (haiku / sonnet / opus).
-3. Tarefas independentes rodam em paralelo, cada uma em **worktree** própria.
-4. Cada tarefa termina com testes verdes → `/pr-create`.
-5. `/pr-review <n>` antes do merge (o merge é sempre humano).
+Do projeto ao merge, com o comando de cada etapa:
 
+```mermaid
+flowchart TD
+    A["1 · Pensar o projeto<br/><code>/init</code> + <code>/project-skill-bootstrap</code>"] --> B
+    B["2 · Criar o plano<br/>plan mode + edicao manual de docs/PLANO.md"] --> C
+    C["3 · Quebrar em fases<br/>manual"] --> D
+    D["4 · Classificar fase -> modelo<br/><code>/run-phase 3 --dry-run</code>"] --> E
+    E["5 · Rodar a fase<br/><code>/run-phase 3</code>"] --> F
+    F["6 · Abrir PR<br/><code>/pr-create</code>"] --> G
+    G["7 · Revisar PR<br/><code>/pr-review 123</code> + <code>/code-review high</code>"] --> H
+    H["8 · Merge<br/>manual, sempre humano"] --> D
+
+    style B fill:#fff4e0,stroke:#b26a00
+    style C fill:#fff4e0,stroke:#b26a00
+    style H fill:#e6f4ea,stroke:#1e7e34
+```
+
+| # | Etapa | Comando | Quem executa |
+|---|-------|---------|--------------|
+| 1 | Pensar o projeto: contexto, stack, regras de review | `/init`, `/project-skill-bootstrap` | skill |
+| 2 | Criar `docs/PLANO.md` | plan mode + edicao manual | manual |
+| 3 | Quebrar o plano em fases com critério de pronto | manual | manual |
+| 4 | Classificar a fase em tarefas e escolher o modelo | `/run-phase <fase> --dry-run` | `phase-planner` (opus) |
+| 5 | Executar a fase em lotes paralelos, 1 worktree por tarefa | `/run-phase <fase>` | `implementer-fast` / `implementer` / `architect` |
+| 6 | Abrir um PR por tarefa (1 tarefa = 1 branch = 1 PR) | `/pr-create` | skill (chamada pelo `run-phase`) |
+| 7 | Revisar contra `.claude/review-rules.md` e caçar bugs | `/pr-review <n>`, `/code-review high --comment` | `pr-reviewer` + review nativo |
+| 8 | Merge e marcar a fase como concluída no plano | `gh pr merge` | sempre humano |
+
+Pontuação de modelo no passo 4: 0–2 haiku, 3–5 sonnet, 6+ opus.
 Leia [docs/best-practices/model-selection.md](docs/best-practices/model-selection.md) primeiro.
+
+### Lacunas conhecidas
+
+- **Passos 2 e 3 nao tem skill.** O `/run-phase` assume um `docs/PLANO.md` ja dividido
+  em fases, mas nada no repo produz esse arquivo. Falta uma `/plan-create` que leia o
+  repo e escreva o plano no formato que o `phase-planner` consome.
+- **`--dry-run` nao persiste a decisao.** A tabela de modelos existe so no chat; uma flag
+  `--annotate` deveria gravar modelo e lotes dentro da fase no `PLANO.md`.
+- **Passo 7 tem dois reviews sem critério.** `/pr-review` (padroes do projeto) e
+  `/code-review` (bugs de correcao) sao complementares, mas a ordem nao esta documentada
+  dentro da skill.
+- **O plano e marcado cedo.** O `run-phase` marca tarefas concluidas na abertura do PR,
+  nao no merge — falta um gatilho pos-merge.
