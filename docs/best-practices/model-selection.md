@@ -47,6 +47,9 @@ Duas regras em cima disso:
 - **V baixo e R alto** (V ≤ 1 e R ≥ 4): prefira **Sonnet + `high`** a Opus. É o caso de
   "pouco código, decisão difícil".
 - **`max` nunca é automático.** Só se o usuário pedir: é o nível mais caro.
+- **Sem opus na conta:** substitua por `sonnet` + `xhigh` e **diga que foi substituído**.
+  Planejamento é pouco output e muito raciocínio, então é onde a troca dói menos — mas
+  em tarefa de risco alto (R ≥ 5) vale esperar por opus em vez de rebaixar.
 
 ## Exemplos (front-end)
 

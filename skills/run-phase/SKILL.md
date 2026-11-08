@@ -23,8 +23,9 @@ argument-hint: "<fase> [fase...] [--plan caminho] [--dry-run]"
 Procure, nesta ordem: `--plan`, `docs/PLANO.md`, `docs/PLAN.md`, `PLAN.md`, `ROADMAP.md`.
 Leia também `CLAUDE.md`, `CONTRIBUTING.md` e `.claude/review-rules.md` se existirem.
 
-### 2. Planejar (subagent `phase-planner`, opus)
-Passe as fases pedidas e os arquivos acima. Ele devolve a tabela:
+### 2. Planejar (subagent `phase-planner`)
+Passe as fases pedidas e os arquivos acima, e diga se **opus está disponível**
+(veja "Opus indisponível" abaixo). Ele devolve a tabela:
 
 | # | Tarefa | Arquivos | Depende de | V | R | Modelo | Effort | Critério de pronto |
 
@@ -46,6 +47,15 @@ Para cada lote (tarefas sem dependência pendente e sem arquivos em comum):
 - Cada agente com `isolation: "worktree"`, branch `feat/<fase>-<slug>`.
 - Prompt de cada agente: tarefa, arquivos, critério de pronto, comando de teste,
   "não toque em outros arquivos", formato de retorno.
+
+### 4b. Opus indisponível
+A conta pode não ter opus no momento. Nunca rebaixe em silêncio:
+- Os agents `phase-planner` e `architect` usam `model: inherit`. Sem opus, chame-os no
+  modelo da sessão com `effort: xhigh`.
+- Tarefa marcada opus na tabela → rode `sonnet` + `effort: xhigh` e mostre na tabela como
+  `sonnet + xhigh (era opus)`.
+- Diga ao usuário, em uma linha, quais tarefas foram rebaixadas, antes de executar. Ele
+  pode preferir esperar por opus nas tarefas de risco alto (R ≥ 5).
 
 ### 5. Verificar
 Para cada tarefa: rode os testes na worktree, confira o diff. Falhou → devolva ao

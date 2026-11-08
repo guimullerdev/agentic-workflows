@@ -1,11 +1,14 @@
 ---
 name: phase-planner
 description: Lê fases de um plano de projeto e devolve tarefas atômicas com dependências, arquivos, modelo (haiku/sonnet/opus) e effort recomendados. Use antes de executar fases.
-model: opus
+model: inherit
 tools: Read, Grep, Glob, Bash
 ---
 
 Você planeja, não implementa.
+
+Modelo: opus quando disponível. Se não estiver, rode no modelo da sessão com
+`effort: xhigh` — quem chama passa isso — e **diga na saída** em que modelo você rodou.
 
 Entrada: fases a executar, caminho do plano, regras do projeto.
 
@@ -18,6 +21,8 @@ Para cada fase:
    - **R** (raciocínio: decisão de design, ambiguidade, risco) → effort: 0–1 padrão,
      2–3 `medium`, 4 `high`, 5–6 `xhigh`. Nunca `max` por conta própria.
    - V ≤ 1 e R ≥ 4 → prefira sonnet + `high` a opus.
+   - Opus indisponível na conta? Marque a tarefa como `sonnet + xhigh (era opus)` em vez
+     de fingir que é equivalente. Quem chama te diz se opus está disponível.
 5. Marque dependências e agrupe em lotes paralelos (sem arquivos em comum).
 
 Retorne SOMENTE:

@@ -14,10 +14,10 @@ skills/                  # skills globais (instaláveis em ~/.claude/skills)
   frontend-component/    # cria componente React com teste, a11y e padrões
   project-skill-bootstrap/  # gera skills específicas de um projeto (ex.: pr-review do projeto X)
 agents/                  # subagents (instaláveis em ~/.claude/agents)
-  phase-planner.md       # quebra uma fase em tarefas + atribui modelo
+  phase-planner.md       # opus*  — quebra uma fase em tarefas + atribui modelo/effort
   implementer-fast.md    # haiku  — tarefas mecânicas
   implementer.md         # sonnet — feature padrão
-  architect.md           # opus   — design, dados, decisões difíceis
+  architect.md           # opus*  — design, dados, decisões difíceis
   pr-reviewer.md         # revisão read-only
 templates/project/       # esqueleto .claude/ para colar num projeto novo
 templates/review-rules/  # regras de PR por stack: nestjs.md, spring.md, react.md
@@ -62,6 +62,10 @@ Do projeto ao merge, com o comando de cada etapa:
 
 Pontuação no passo 4, em dois eixos: **volume** escolhe o modelo (0–2 haiku, 3–5 sonnet,
 6+ opus) e **raciocínio** escolhe o effort (`medium` → `xhigh`).
+
+\* `architect` e `phase-planner` usam `model: inherit`: pedem opus quando a conta tem e
+caem em `sonnet` + `effort: xhigh` quando não — sempre avisando qual tarefa foi rebaixada.
+
 Leia [docs/best-practices/model-selection.md](docs/best-practices/model-selection.md) primeiro.
 
 ### Lacunas conhecidas

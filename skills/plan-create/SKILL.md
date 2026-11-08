@@ -36,7 +36,10 @@ Peça ao subagent, e não leia o repo você mesmo:
 
 Não suba app, Docker ou banco.
 
-### 3. Desenhar as fases (subagent `architect`, opus)
+### 3. Desenhar as fases (subagent `architect`)
+Opus quando disponível; se não estiver, chame o `architect` no modelo da sessão com
+`effort: xhigh` e avise o usuário em uma linha de que o plano saiu sem opus.
+
 Entrada: objetivo, achados do passo 2, regras do projeto, `--phases` se dado.
 Critérios de uma fase boa:
 - Entrega valor sozinha e deixa a `main` verde.
