@@ -7,6 +7,7 @@ reaproveitável em projetos pessoais e no trabalho.
 
 ```
 skills/                  # skills globais (instaláveis em ~/.claude/skills)
+  project-start/         # começa um app do zero com o fluxo; sem argumento diz "onde estou"
   plan-create/           # cria docs/PLANO.md em fases, no formato que run-phase consome
   run-phase/             # executa fase(s) de um plano, escolhendo modelo e effort por tarefa
   pr-create/             # abre PR padronizado (branch, conventional commits, descrição)
@@ -19,7 +20,7 @@ agents/                  # subagents (instaláveis em ~/.claude/agents)
   implementer.md         # sonnet — feature padrão
   architect.md           # opus*  — design, dados, decisões difíceis
   pr-reviewer.md         # revisão read-only
-templates/project/       # esqueleto .claude/ para colar num projeto novo
+templates/project/       # esqueleto .claude/ + docs/WORKFLOW.md (estado e ciclo) para projeto novo
 templates/review-rules/  # regras de PR por stack: nestjs.md, spring.md, react.md
 docs/fluxo.svg           # diagrama do fluxo (usado no README)
 docs/best-practices/     # guias: skills, subagents, worktrees, seleção de modelo, workflows
@@ -43,6 +44,15 @@ Comece copiando o modelo da stack (`templates/review-rules/`) ou rode
 `/project-skill-bootstrap` no projeto. O review é estático: lê regras + diff,
 nunca sobe app, Docker ou banco.
 
+## Começando do zero
+
+1. `./scripts/install.sh` (uma vez).
+2. Na pasta do app novo: `/project-start "<ideia em uma frase>"` — entrevista, esqueleto,
+   `CLAUDE.md`, `review-rules.md` e `docs/WORKFLOW.md`.
+3. Sessão nova: `/plan-create "<objetivo>"`.
+4. Daí em diante, uma etapa por sessão seguindo o ciclo de `docs/WORKFLOW.md`.
+   Perdido? `/project-start` sem argumento lê o estado e diz o próximo comando.
+
 ## Fluxo principal
 
 Do projeto ao merge, com o comando de cada etapa:
@@ -51,7 +61,7 @@ Do projeto ao merge, com o comando de cada etapa:
 
 | # | Etapa | Comando | Quem executa |
 |---|-------|---------|--------------|
-| 1 | Pensar o projeto: contexto, stack, regras de review | `/init`, `/project-skill-bootstrap` | skill |
+| 1 | Pensar o projeto: contexto, stack, regras de review | `/project-start` (do zero) ou `/project-skill-bootstrap` (código existente) | skill |
 | 2 | Criar `docs/PLANO.md` a partir de um objetivo | `/plan-create "<objetivo>"` | `architect` (opus) |
 | 3 | Revisar as fases antes de gravar o plano | `/plan-create --dry-run` | `architect` (opus) |
 | 4 | Classificar a fase em tarefas e escolher modelo + effort | `/run-phase <fase> --dry-run` | `phase-planner` (opus) |
