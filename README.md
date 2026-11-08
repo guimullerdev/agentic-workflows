@@ -8,7 +8,7 @@ reaproveitável em projetos pessoais e no trabalho.
 ```
 skills/                  # skills globais (instaláveis em ~/.claude/skills)
   plan-create/           # cria docs/PLANO.md em fases, no formato que run-phase consome
-  run-phase/             # executa fase(s) de um plano, escolhendo modelo por tarefa
+  run-phase/             # executa fase(s) de um plano, escolhendo modelo e effort por tarefa
   pr-create/             # abre PR padronizado (branch, conventional commits, descrição)
   pr-review/             # revisa PR contra padrões do projeto
   frontend-component/    # cria componente React com teste, a11y e padrões
@@ -54,13 +54,14 @@ Do projeto ao merge, com o comando de cada etapa:
 | 1 | Pensar o projeto: contexto, stack, regras de review | `/init`, `/project-skill-bootstrap` | skill |
 | 2 | Criar `docs/PLANO.md` a partir de um objetivo | `/plan-create "<objetivo>"` | `architect` (opus) |
 | 3 | Revisar as fases antes de gravar o plano | `/plan-create --dry-run` | `architect` (opus) |
-| 4 | Classificar a fase em tarefas e escolher o modelo | `/run-phase <fase> --dry-run` | `phase-planner` (opus) |
+| 4 | Classificar a fase em tarefas e escolher modelo + effort | `/run-phase <fase> --dry-run` | `phase-planner` (opus) |
 | 5 | Executar a fase em lotes paralelos, 1 worktree por tarefa | `/run-phase <fase>` | `implementer-fast` / `implementer` / `architect` |
 | 6 | Abrir um PR por tarefa (1 tarefa = 1 branch = 1 PR) | `/pr-create` | skill (chamada pelo `run-phase`) |
 | 7 | Revisar contra `.claude/review-rules.md` e caçar bugs | `/pr-review <n>`, `/code-review high --comment` | `pr-reviewer` + review nativo |
 | 8 | Merge e marcar a fase como concluída no plano | `gh pr merge` | sempre humano |
 
-Pontuação de modelo no passo 4: 0–2 haiku, 3–5 sonnet, 6+ opus.
+Pontuação no passo 4, em dois eixos: **volume** escolhe o modelo (0–2 haiku, 3–5 sonnet,
+6+ opus) e **raciocínio** escolhe o effort (`medium` → `xhigh`).
 Leia [docs/best-practices/model-selection.md](docs/best-practices/model-selection.md) primeiro.
 
 ### Lacunas conhecidas
