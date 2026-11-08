@@ -21,6 +21,7 @@ agents/                  # subagents (instaláveis em ~/.claude/agents)
   pr-reviewer.md         # revisão read-only
 templates/project/       # esqueleto .claude/ para colar num projeto novo
 templates/review-rules/  # regras de PR por stack: nestjs.md, spring.md, react.md
+docs/fluxo.svg           # diagrama do fluxo (usado no README)
 docs/best-practices/     # guias: skills, subagents, worktrees, seleção de modelo, workflows
 notes/                   # avaliações de projetos (ex.: notebook-monitor)
 scripts/install.sh       # symlink de skills/agents para ~/.claude
@@ -46,19 +47,7 @@ nunca sobe app, Docker ou banco.
 
 Do projeto ao merge, com o comando de cada etapa:
 
-```mermaid
-flowchart TD
-    A["1 · Pensar o projeto<br/><code>/init</code> + <code>/project-skill-bootstrap</code>"] --> B
-    B["2 · Criar o plano<br/><code>/plan-create</code>"] --> C
-    C["3 · Quebrar em fases<br/><code>/plan-create --dry-run</code>"] --> D
-    D["4 · Classificar fase -> modelo<br/><code>/run-phase 3 --dry-run</code>"] --> E
-    E["5 · Rodar a fase<br/><code>/run-phase 3</code>"] --> F
-    F["6 · Abrir PR<br/><code>/pr-create</code>"] --> G
-    G["7 · Revisar PR<br/><code>/pr-review 123</code> + <code>/code-review high</code>"] --> H
-    H["8 · Merge<br/>manual, sempre humano"] --> D
-
-    style H fill:#e6f4ea,stroke:#1e7e34
-```
+![Fluxo do projeto ao merge](docs/fluxo.svg)
 
 | # | Etapa | Comando | Quem executa |
 |---|-------|---------|--------------|
