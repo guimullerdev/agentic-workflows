@@ -48,6 +48,11 @@ Para cada lote (tarefas sem dependência pendente e sem arquivos em comum):
   campo `Jira`, use `feat/<KEY>-<slug>` (ex.: `feat/PROJ-124-login-form`).
 - Prompt de cada agente: tarefa, arquivos, critério de pronto, comando de teste,
   "não toque em outros arquivos", formato de retorno.
+- **Log de chamadas:** antes de cada chamada ao Agent, escreva uma linha visível
+  `▶ T<#> <tarefa> → <agente> · <modelo> · effort <effort|padrão> · worktree <branch>`
+  e, ao voltar, `✔/✖ T<#> <agente> (<modelo>) — <resumo em 1 linha>`. Vale também
+  para `phase-planner`, `architect`, retries e escalonamentos. Guarde cada linha para
+  o relatório final.
 
 ### 4b. Opus indisponível
 A conta pode não ter opus no momento. Nunca rebaixe em silêncio:
@@ -69,5 +74,10 @@ campo `Jira` → chave no início do título (`PROJ-124 feat: ...`) e no Context
 Jira vincular o PR sozinho. Não escreva no Jira.
 
 ### 7. Relatório
-Tabela final: tarefa, modelo e effort usados, PR, status, o que ficou pendente.
+Tabela final, uma linha por chamada de agente (inclusive planner, architect e retries):
+
+| # | Tarefa | Agente | Modelo | Effort | Tentativa | Resultado | PR |
+
+Marque rebaixamentos (`sonnet + xhigh (era opus)`) e escalonamentos (`effort high→xhigh`).
+Depois: totais por modelo (ex.: `haiku 3 · sonnet 5 · opus 1`) e o que ficou pendente.
 Atualize o plano marcando tarefas concluídas (em PR próprio `docs:`).
