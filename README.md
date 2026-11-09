@@ -85,6 +85,18 @@ Mostra o resultado **sem efeito colateral**, para você revisar antes de gastar 
 
 Não gostou de um modelo ou effort? Peça a troca e rode sem a flag.
 
+Sem a flag, o `run-phase` mostra cada chamada de agente enquanto roda e termina com um
+relatório de todas elas (inclusive planner, architect e novas tentativas), com o total
+por modelo:
+
+```text
+▶ T2 login form → implementer · sonnet · effort high · worktree feat/PROJ-124-login-form
+✔ T2 implementer (sonnet) — form + testes passando
+
+| # | Tarefa | Agente | Modelo | Effort | Tentativa | Resultado | PR |
+haiku 3 · sonnet 5 · opus 1
+```
+
 ### Onde fica o modelo de cada tarefa
 
 **Não fica no `PLANO.md`**, de propósito. O plano descreve só fases (objetivo, escopo,
