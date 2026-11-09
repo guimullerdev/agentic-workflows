@@ -6,6 +6,7 @@
 ## Fase 1 — <título curto>
 
 - **Objetivo:** o que esta fase entrega.
+- **Jira:** `PROJ-124` (opcional; preenchido pelo `jira-plan`)
 - **Depende de:** — (ou `Fase N`)
 - **Escopo:** 2 a 5 bullets do que será feito.
 - **Fora de escopo:** o que fica para outra fase (evita o agente expandir sozinho).

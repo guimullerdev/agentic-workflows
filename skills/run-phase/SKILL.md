@@ -44,7 +44,8 @@ Para cada lote (tarefas sem dependência pendente e sem arquivos em comum):
 - Opus → agente `architect` gera o spec; depois `implementer` implementa
 - Passe `effort` ao agente conforme a coluna Effort da tabela (R 0–1 → não passe nada).
   `max` só se o usuário pedir.
-- Cada agente com `isolation: "worktree"`, branch `feat/<fase>-<slug>`.
+- Cada agente com `isolation: "worktree"`, branch `feat/<fase>-<slug>`; se a fase tem
+  campo `Jira`, use `feat/<KEY>-<slug>` (ex.: `feat/PROJ-124-login-form`).
 - Prompt de cada agente: tarefa, arquivos, critério de pronto, comando de teste,
   "não toque em outros arquivos", formato de retorno.
 
@@ -63,7 +64,9 @@ mesmo agente com o erro (máx. 2 vezes). Ainda falhando: suba **um** nível — 
 effort, e só depois o modelo (effort é mais barato que trocar de modelo).
 
 ### 6. PRs
-Use a skill `pr-create` em cada branch verde. No PR, cite a fase e a tarefa.
+Use a skill `pr-create` em cada branch verde. No PR, cite a fase e a tarefa. Fase com
+campo `Jira` → chave no início do título (`PROJ-124 feat: ...`) e no Contexto, para o
+Jira vincular o PR sozinho. Não escreva no Jira.
 
 ### 7. Relatório
 Tabela final: tarefa, modelo e effort usados, PR, status, o que ficou pendente.
