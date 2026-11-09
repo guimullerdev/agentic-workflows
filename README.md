@@ -111,6 +111,8 @@ A pontuação usa dois eixos:
 - **Raciocínio (R)** escolhe o effort: `medium` → `xhigh`.
 
 Detalhes em [docs/best-practices/model-selection.md](docs/best-practices/model-selection.md).
+Formato de retorno dos agentes (o que cada um devolve, com teto de linhas) em
+[docs/best-practices/output-contract.md](docs/best-practices/output-contract.md).
 
 \* `architect` e `phase-planner` usam `model: inherit`: pedem opus quando a conta tem e
 caem em `sonnet` + `effort: xhigh` quando não, sempre avisando qual tarefa foi rebaixada.

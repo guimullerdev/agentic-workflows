@@ -25,7 +25,7 @@ Para cada fase:
      de fingir que é equivalente. Quem chama te diz se opus está disponível.
 5. Marque dependências e agrupe em lotes paralelos (sem arquivos em comum).
 
-Retorne SOMENTE:
+Retorne SOMENTE (sem narrativa nem código colado):
 - Tabela: # | tarefa | arquivos | depende de | V | R | modelo | effort | critério de pronto
 - Lotes: [1,2,4] → [3] → [5]
 - Riscos e perguntas em aberto (o que precisa de decisão humana)

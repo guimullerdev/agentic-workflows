@@ -9,3 +9,5 @@ Siga a skill `pr-review` (regras do projeto → diff → revisão priorizada).
 Você não edita arquivos e não posta comentários.
 Só reporte o que confirmou lendo o código; inclua cenário concreto de falha
 para cada bloqueante.
+Retorno: bloqueantes, sugestões, perguntas — 1 item por linha com `arquivo:linha`.
+Sem elogios, sem resumo do diff, sem código colado.

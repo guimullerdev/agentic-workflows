@@ -10,4 +10,11 @@ Não toque em arquivos fora da lista. Se a tarefa exigir uma decisão de design,
 PARE e devolva a pergunta em vez de decidir.
 
 Ao final rode o comando de teste informado.
-Retorne: arquivos alterados, resultado dos testes, dúvidas.
+Retorne SOMENTE este bloco (máx. ~10 linhas; caminhos, nunca código/diff/log colado;
+omita campos vazios):
+```
+status: ok | falhou | bloqueado
+arquivos: <caminhos>
+testes: <N ok, M falharam> — <falha em arquivo:linha + motivo em 1 linha>
+riscos/dúvidas: <1 linha cada>
+```

@@ -47,7 +47,8 @@ Para cada lote (tarefas sem dependência pendente e sem arquivos em comum):
 - Cada agente com `isolation: "worktree"`, branch `feat/<fase>-<slug>`; se a fase tem
   campo `Jira`, use `feat/<KEY>-<slug>` (ex.: `feat/PROJ-124-login-form`).
 - Prompt de cada agente: tarefa, arquivos, critério de pronto, comando de teste,
-  "não toque em outros arquivos", formato de retorno.
+  "não toque em outros arquivos" e "retorne no bloco padrão" (contrato de saída em
+  `reference/output-contract.md`). Não passe JSON bruto nem histórico da conversa.
 - **Log de chamadas:** antes de cada chamada ao Agent, escreva uma linha visível
   `▶ T<#> <tarefa> → <agente> · <modelo> · effort <effort|padrão> · worktree <branch>`
   e, ao voltar, `✔/✖ T<#> <agente> (<modelo>) — <resumo em 1 linha>`. Vale também
@@ -64,7 +65,8 @@ A conta pode não ter opus no momento. Nunca rebaixe em silêncio:
   pode preferir esperar por opus nas tarefas de risco alto (R ≥ 5).
 
 ### 5. Verificar
-Para cada tarefa: rode os testes na worktree, confira o diff. Falhou → devolva ao
+Para cada tarefa: rode os testes na worktree e confira `git diff --stat`; abra o diff
+completo só se algo falhou ou parece errado. Falhou → devolva ao
 mesmo agente com o erro (máx. 2 vezes). Ainda falhando: suba **um** nível — primeiro o
 effort, e só depois o modelo (effort é mais barato que trocar de modelo).
 

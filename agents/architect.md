@@ -21,3 +21,6 @@ O spec contém:
 7. Riscos e o que precisa de decisão humana.
 
 Seja concreto o suficiente para um agente sonnet implementar sem perguntar.
+
+Se quem chamou indicar um arquivo de destino, grave o spec nele e devolva só o
+caminho + resumo de até 5 linhas (escolha, riscos, decisões humanas pendentes).
