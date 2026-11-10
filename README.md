@@ -54,7 +54,7 @@ está e qual o próximo comando. Rode cada etapa numa sessão nova para não arr
 
 ## Fluxo completo
 
-![Fluxo do projeto ao merge](docs/flow.svg)
+![Flow from project to merge](docs/flow.svg)
 
 | # | Etapa | Comando | Quem executa |
 |---|-------|---------|--------------|
@@ -144,7 +144,7 @@ agents/                  # subagents (instaláveis em ~/.claude/agents)
   pr-reviewer.md         # revisão read-only
 templates/project/       # esqueleto .claude/ + docs/WORKFLOW.md (estado e ciclo) para projeto novo
 templates/review-rules/  # regras de PR por stack: nestjs.md, spring.md, react.md
-docs/flow.svg           # diagrama do fluxo (usado acima)
+docs/flow.svg           # flow diagram (used above)
 docs/best-practices/     # guias: skills, subagents, worktrees, seleção de modelo, workflows
 notes/                   # avaliações de projetos (ex.: notebook-monitor)
 scripts/install.sh       # symlink de skills/agents para ~/.claude
