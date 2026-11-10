@@ -24,4 +24,4 @@ decisions: <only the non-obvious ones, 1 line each>   (omit if none)
 risks/doubts: <1 line each>   (omit if none)
 ```
 
-Nunca adicionar atribuição de IA (Co-Authored-By: Claude, "Generated with Claude Code", menção ao Claude) em commits, branches, PRs ou comentários.
+Never add AI attribution (Co-Authored-By: Claude, "Generated with Claude Code", mentions of Claude) in commits, branches, PRs or comments.
