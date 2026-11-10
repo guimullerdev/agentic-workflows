@@ -11,7 +11,7 @@
   - `docs/PLANO.md` → `docs/PLAN.md` em plan-create, jira-plan, project-start, `templates/project/CLAUDE.md` e `templates/project/docs/WORKFLOW.md`; run-phase procura `PLAN.md` primeiro e cai em `PLANO.md`.
   - Traduzir cabeçalhos e campos de `plan-template.md` (Phase N, Goal, Depends on, Scope, Out of scope, Likely files, Done criteria, Risk, Open questions, done) e atualizar no mesmo PR quem os lê: run-phase, `agents/phase-planner.md`, project-start, jira-plan.
   - phase-planner e run-phase aceitam cabeçalhos nos dois idiomas durante a transição.
-- **Fora de escopo:** prosa das skills, README, fluxo.svg.
+- **Fora de escopo:** prosa das skills, README, flow.svg.
 - **Arquivos prováveis:** `skills/{plan-create,run-phase,project-start,jira-plan}/**`, `agents/phase-planner.md`, `templates/project/**`
 - **Critério de pronto:** `grep -rn "PLANO.md\|Critério de pronto\|Arquivos prováveis\|Depende de" skills agents templates` só encontra a linha do fallback e as de tolerância bilíngue; `/run-phase --dry-run` acha a próxima fase num plano com cabeçalhos antigos e noutro com cabeçalhos novos.
 - **Risco:** um leitor esquecido lê a fase errado em silêncio. Depende das perguntas 1 e 4.
@@ -51,13 +51,13 @@
 - **Depende de:** Fase 3
 - **Escopo:**
   - `docs/best-practices/*.md`; `model-selection.md` mantém o nome (install.sh cria link para ele).
-  - Texto do `docs/fluxo.svg`; renomear para `flow.svg` se a pergunta 3 aprovar, atualizando referências.
+  - Texto do `docs/flow.svg` (renomeado de `fluxo.svg`), referências atualizadas.
   - `notes/notebook-monitor.md` e prosa restante dos templates.
 - **Fora de escopo:** README, ESTRUTURA.
 - **Arquivos prováveis:** `docs/**`, `notes/**`, `templates/**`
 - **Critério de pronto:** busca por palavras em português em `docs notes templates` vazia; SVG abre no navegador; link do install.sh resolve.
 - **Risco:** texto em inglês mais longo pode quebrar o layout do SVG.
-- [ ] concluída
+- [x] concluída
 
 ## Fase 5 — README, ESTRUTURA e varredura final
 
@@ -77,6 +77,6 @@
 
 1. Renomear `PLANO.md` → `PLAN.md` mantendo `PLANO.md` como fallback? Por quanto tempo?
 2. Manter gatilhos bilíngues (PT e EN) nas descriptions do frontmatter? **Decidido (2026-11-10): só inglês.**
-3. Renomear `ESTRUTURA.md` → `STRUCTURE.md` e `fluxo.svg` → `flow.svg`? Versionar o ESTRUTURA.md?
+3. Renomear `ESTRUTURA.md` → `STRUCTURE.md` e `fluxo.svg` → `flow.svg`? Versionar o ESTRUTURA.md? **Parcial (2026-11-10): `fluxo.svg` renomeado para `flow.svg` na Fase 4; `ESTRUTURA.md` ainda em aberto (Fase 5).**
 4. O plan-template fica em inglês de vez (phase-planner aceita os dois idiomas) ou o plano continua em português? **Decidido (2026-11-10): inglês de vez.**
 5. WORKFLOW.md e PLANO.md antigos em projetos que já usam o kit: migrar, aceitar os dois formatos ou ignorar?
