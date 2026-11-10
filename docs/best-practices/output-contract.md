@@ -8,7 +8,7 @@ novo a cada turno seguinte. Este contrato define o que agentes e skills devolvem
 1. **Referência, não conteúdo.** Devolva caminhos (`arquivo:linha`), nunca código,
    diff ou arquivo colado. Quem chamou lê o que precisar.
 2. **Saída de comando resumida.** Testes, lint e build entram como contagem e falhas:
-   `testes: 42 ok, 1 falhou — auth.test.ts:88 expected 401 got 200`. Nada de log inteiro.
+   `tests: 42 ok, 1 falhou — auth.test.ts:88 expected 401 got 200`. Nada de log inteiro.
 3. **Sem narrativa.** Nada de "primeiro eu li…", nada de repetir a tarefa, nada de
    conclusão educada no fim.
 4. **Teto.** O retorno de um subagent cabe em **~20 linhas**. Passou disso, corte o
@@ -19,19 +19,19 @@ novo a cada turno seguinte. Este contrato define o que agentes e skills devolvem
 
 ```
 status: ok | falhou | bloqueado
-arquivos: caminho/a.ts, caminho/b.ts
-testes: <N ok, M falharam> — <falhas em arquivo:linha + 1 linha de motivo>
-decisões: <só as não óbvias, 1 linha cada>   (omita se nenhuma)
-riscos/dúvidas: <1 linha cada>                (omita se nenhum)
+files: caminho/a.ts, caminho/b.ts
+tests: <N ok, M falharam> — <falhas em arquivo:linha + 1 linha de motivo>
+decisions: <só as não óbvias, 1 linha cada>   (omita se nenhuma)
+risks/doubts: <1 linha cada>                  (omita se nenhum)
 ```
 
 Campos vazios são omitidos, não preenchidos com "nenhum".
 
 ## Por agente
 
-| agente | retorna | teto |
+| agent | returns | cap |
 |---|---|---|
-| implementer-fast | bloco padrão sem `decisões` | ~10 linhas |
+| implementer-fast | bloco padrão sem `decisions` | ~10 linhas |
 | implementer | bloco padrão | ~20 linhas |
 | phase-planner | tabela + lotes + perguntas (já definido no agente) | a tabela |
 | architect | o spec é o produto: grave em arquivo quando houver destino e devolva o caminho + resumo de 5 linhas | spec completo só se não houver arquivo |

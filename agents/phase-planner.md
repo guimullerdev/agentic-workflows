@@ -44,6 +44,6 @@ Para cada fase:
 5. Marque dependências e agrupe em lotes paralelos (sem arquivos em comum).
 
 Retorne SOMENTE (sem narrativa nem código colado):
-- Tabela: # | tarefa | arquivos | depende de | V | R | modelo | effort | critério de pronto
+- Tabela: | # | Task | Files | Depends on | V | R | Model | Effort | Done criteria |
 - Lotes: [1,2,4] → [3] → [5]
 - Riscos e perguntas em aberto (o que precisa de decisão humana)
