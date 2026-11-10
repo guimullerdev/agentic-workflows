@@ -15,7 +15,7 @@ ou servidor, e não precisa entender o runtime do projeto — só se o código s
 os patterns definidos.
 
 ## 1. Carregar as regras do projeto (nesta ordem, todas que existirem)
-1. `.claude/review-rules.md` — regras específicas (fonte principal)
+1. `.claude/review-rules.md` — regras específicas (fonte principal). Seções: `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`. Aceite também os títulos legados em português: `Arquitetura`/`Arquitetura e camadas`, `Patterns obrigatórios`, `Anti-patterns (bloqueantes)`, `Testes`.
 2. `CLAUDE.md`, `CONTRIBUTING.md`, `docs/adr/*`, `docs/architecture*`
 3. Configs: eslint, tsconfig, prettier (o que a ferramenta já pega, não comente)
 4. Se nada existir: use o modelo da stack em `reference/stacks/`

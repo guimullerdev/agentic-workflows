@@ -25,7 +25,9 @@ Não suba o app, Docker ou banco: o objetivo são os patterns do código.
 - `CLAUDE.md` — ≤ 60 linhas: comandos, mapa da arquitetura, regras.
 - `.claude/review-rules.md` — usado pela skill global `pr-review`:
   camadas e imports permitidos, patterns obrigatórios (com arquivo exemplo),
-  anti-patterns, requisitos de teste, checklist de PR.
+  anti-patterns, requisitos de teste, checklist de PR. Use os títulos em inglês do modelo:
+  `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`.
+  Ao atualizar um arquivo existente com títulos legados em português, mantenha o conteúdo e migre os títulos.
 - Opcional: `.claude/skills/<nome>/SKILL.md` para fluxos só deste projeto.
 
 ## 3. Confirmar
