@@ -1,50 +1,50 @@
-# Workflow — <Projeto>
+# Workflow — <Project>
 
-Este projeto segue o fluxo do `agentic-workflows`. Cada etapa roda **numa sessão
-separada**, termina num artefato (arquivo, PR, merge) e atualiza o **State** abaixo.
-Perdido? Rode `/project-start` (sem argumento): ele lê este arquivo e diz o próximo comando.
+This project follows the `agentic-workflows` flow. Each stage runs in a **separate
+session**, ends in an artifact (file, PR, merge) and updates the **State** below.
+Lost? Run `/project-start` (no argument): it reads this file and tells you the next command.
 
 ## State
 
-<!-- Atualizado por quem terminar uma etapa. Uma linha por etapa, data absoluta. -->
-- Etapa atual: **0 — Setup**
-- Fase do plano em andamento: —
-- PRs abertos aguardando review/merge: —
-- Última atualização: <AAAA-MM-DD>
+<!-- Updated by whoever finishes a stage. One line per stage, absolute date. -->
+- Current stage: **0 — Setup**
+- Plan phase in progress: —
+- Open PRs awaiting review/merge: —
+- Last updated: <YYYY-MM-DD>
 
-## Setup (uma vez)
+## Setup (once)
 
-- [ ] 0. Ideia, stack e regras definidas — `/project-start "<ideia>"`
-- [ ] 1. Esqueleto do app rodando e testes verdes na `main`
-- [ ] 2. Plano em fases gravado em `docs/PLAN.md` — `/plan-create "<objetivo>"`
+- [ ] 0. Idea, stack and rules defined — `/project-start "<idea>"`
+- [ ] 1. App skeleton running and tests green on `main`
+- [ ] 2. Phased plan saved in `docs/PLAN.md` — `/plan-create "<goal>"`
 
-## Cycle (repete por fase até o plano acabar)
+## Cycle (repeats per phase until the plan is done)
 
 ```
- ┌─▶ 3. classificar a fase   /run-phase <n> --dry-run
- │   4. executar a fase       /run-phase <n>            → 1 PR por tarefa
- │   5. revisar cada PR       /pr-review <pr> e /code-review high --comment
- │   6. corrigir e mergear    humano: gh pr merge
- │   7. fechar a fase         marcar [x] no PLAN.md, atualizar State
- └── 8. próxima fase? volta ao 3.  Plano acabou? /plan-create para o próximo objetivo
+ ┌─▶ 3. classify the phase    /run-phase <n> --dry-run
+ │   4. run the phase         /run-phase <n>            → 1 PR per task
+ │   5. review each PR        /pr-review <pr> and /code-review high --comment
+ │   6. fix and merge         human: gh pr merge
+ │   7. close the phase       mark [x] in PLAN.md, update State
+ └── 8. next phase? back to 3.  Plan done? /plan-create for the next goal
 ```
 
 | If State says… | Run |
 |---|---|
-| Setup incompleto | `/project-start` |
-| Sem `docs/PLAN.md` | `/plan-create "<objetivo>"` |
-| Fase N sem tarefas classificadas | `/run-phase N --dry-run` |
-| Fase N classificada, sem PRs | `/run-phase N` |
-| PRs abertos | `/pr-review <pr>` → ajustes → merge |
-| Todos os PRs da fase mergeados | marcar fase `[x]`, seguir para N+1 |
+| Setup incomplete | `/project-start` |
+| No `docs/PLAN.md` | `/plan-create "<goal>"` |
+| Phase N with no classified tasks | `/run-phase N --dry-run` |
+| Phase N classified, no PRs | `/run-phase N` |
+| Open PRs | `/pr-review <pr>` → fixes → merge |
+| All PRs of the phase merged | mark phase `[x]`, move on to N+1 |
 
 ## Cycle rules
 
-- Uma etapa por sessão. Abriu sessão nova? Leia este arquivo primeiro.
-- Nunca pule o `--dry-run`: é onde você corta tarefa grande ou modelo caro.
-- Merge é sempre humano. Fase só fecha com todos os PRs mergeados e `main` verde.
-- Mudou de ideia sobre o escopo? Volte ao `/plan-create`, não remende na execução.
+- One stage per session. Opened a new session? Read this file first.
+- Never skip the `--dry-run`: it is where you cut a big task or an expensive model.
+- Merge is always human. A phase only closes with all PRs merged and `main` green.
+- Changed your mind about the scope? Go back to `/plan-create`, don't patch it during execution.
 
 ## History
 
-<!-- AAAA-MM-DD — etapa — resultado (PR, commit, decisão) -->
+<!-- YYYY-MM-DD — stage — result (PR, commit, decision) -->
