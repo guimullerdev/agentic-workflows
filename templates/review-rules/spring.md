@@ -1,38 +1,38 @@
 # Review rules — <Project> (Java / Spring Boot)
 
-> Copie para `<projeto>/.claude/review-rules.md` e ajuste. Apague o que não se aplica.
+> Copy to `<project>/.claude/review-rules.md` and adjust. Delete what does not apply.
 
 ## Architecture
-- Camadas: `controller` → `service` → `repository`. Nunca pular camada nem inverter.
-  (Se o projeto usa hexagonal/clean: `adapter.in` → `application/usecase` → `domain` ← `adapter.out`;
-  `domain` não importa Spring nem JPA.)
-- Pacote por feature: `com.<empresa>.<app>.<feature>.{controller,service,repository,dto,domain}`.
-- Exemplo de feature correta: `<caminho>`
+- Layers: `controller` → `service` → `repository`. Never skip a layer or invert the direction.
+  (If the project uses hexagonal/clean: `adapter.in` → `application/usecase` → `domain` ← `adapter.out`;
+  `domain` does not import Spring or JPA.)
+- Package by feature: `com.<company>.<app>.<feature>.{controller,service,repository,dto,domain}`.
+- Example of a correct feature: `<path>`
 
 ## Required patterns
-- **Controller**: recebe/valida (`@Valid` + Bean Validation no DTO), chama service, devolve `ResponseEntity`/DTO. Sem regra de negócio.
-- **DTO separado da entidade**: nunca expor `@Entity` na API. Mapear com MapStruct ou mapper explícito. Preferir `record` para DTOs.
-- Injeção **por construtor** (campos `final`, Lombok `@RequiredArgsConstructor` ok). Nada de `@Autowired` em campo.
-- `@Transactional` na camada de service, não no controller nem no repository.
-- Erros: exceções de domínio + `@RestControllerAdvice` central. Sem `try/catch` que engole exceção ou só faz `printStackTrace`.
-- `Optional` só como retorno; nunca `.get()` sem checagem (usar `orElseThrow`).
-- Config via `@ConfigurationProperties`/`application.yml`; sem valores mágicos.
-- Log com SLF4J (`log.info("x={}", x)`), nunca `System.out`.
+- **Controller**: receives/validates (`@Valid` + Bean Validation on the DTO), calls the service, returns `ResponseEntity`/DTO. No business rules.
+- **DTO separate from the entity**: never expose `@Entity` in the API. Map with MapStruct or an explicit mapper. Prefer `record` for DTOs.
+- **Constructor injection** (`final` fields; Lombok `@RequiredArgsConstructor` is ok). No `@Autowired` on fields.
+- `@Transactional` in the service layer, not in the controller or the repository.
+- Errors: domain exceptions + a central `@RestControllerAdvice`. No `try/catch` that swallows the exception or only calls `printStackTrace`.
+- `Optional` only as a return type; never `.get()` without a check (use `orElseThrow`).
+- Config via `@ConfigurationProperties`/`application.yml`; no magic values.
+- Logging with SLF4J (`log.info("x={}", x)`), never `System.out`.
 
 ## Anti-patterns (blocking)
-- Entidade JPA retornada no controller.
-- N+1: relação `LAZY` acessada em loop sem `fetch join`/`@EntityGraph`.
-- `@Transactional` em método `private` ou chamado de dentro da mesma classe (não funciona via proxy).
-- Query nativa com concatenação de string.
-- Segredos no `application.yml` versionado.
-- Lógica de negócio em controller ou em entidade anêmica + service gigante sem justificativa.
+- JPA entity returned from the controller.
+- N+1: a `LAZY` relation accessed in a loop without `fetch join`/`@EntityGraph`.
+- `@Transactional` on a `private` method or on a method called from within the same class (does not work through the proxy).
+- Native query built with string concatenation.
+- Secrets in the versioned `application.yml`.
+- Business logic in a controller, or an anemic entity + a giant service without justification.
 
 ## Tests
-- Service: JUnit 5 + Mockito, sem subir contexto Spring.
-- Controller: `@WebMvcTest` com service mockado.
-- Repository/queries customizadas: `@DataJpaTest` (Testcontainers se o projeto já usa).
-- Nome do teste descreve comportamento (`shouldReturn404WhenOrderNotFound`).
+- Service: JUnit 5 + Mockito, without starting the Spring context.
+- Controller: `@WebMvcTest` with the service mocked.
+- Repository/custom queries: `@DataJpaTest` (Testcontainers if the project already uses it).
+- Test names describe behavior (`shouldReturn404WhenOrderNotFound`).
 
 ## PR
-- Um assunto por PR; migration (Flyway/Liquibase) junto da mudança de entidade.
-- Descrição: contexto, endpoints/contratos afetados, como testar.
+- One topic per PR; migration (Flyway/Liquibase) together with the entity change.
+- Description: context, affected endpoints/contracts, how to test.

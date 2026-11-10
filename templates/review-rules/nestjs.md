@@ -1,37 +1,37 @@
 # Review rules — <Project> (NestJS)
 
-> Copie para `<projeto>/.claude/review-rules.md` e ajuste. Apague o que não se aplica.
+> Copy to `<project>/.claude/review-rules.md` and adjust. Delete what does not apply.
 
 ## Architecture
-- Um módulo por domínio: `src/<dominio>/{<dominio>.module,controller,service}.ts`, `dto/`, `entities/`.
-- **Controller**: só recebe request, valida (DTO) e chama o Service. Sem regra de negócio, sem acesso a banco.
-- **Service**: regra de negócio. Acessa dados só via Repository/ORM injetado.
-- **Repository/ORM** (TypeORM/Prisma): só dentro do Service ou de um repository próprio.
-- Módulo só usa providers de outro módulo se este os `exports`. Sem import de caminho interno de outro domínio.
-- Exemplo de módulo correto: `src/<exemplo>/`
+- One module per domain: `src/<domain>/{<domain>.module,controller,service}.ts`, `dto/`, `entities/`.
+- **Controller**: only receives the request, validates it (DTO), and calls the Service. No business rules, no database access.
+- **Service**: business rules. Accesses data only via an injected Repository/ORM.
+- **Repository/ORM** (TypeORM/Prisma): only inside the Service or in its own repository.
+- A module only uses providers from another module if that module `exports` them. No importing internal paths of another domain.
+- Example of a correct module: `src/<example>/`
 
 ## Required patterns
-- Toda entrada (body, query, params) com DTO + `class-validator`; `ValidationPipe` global.
-- Resposta não expõe entidade crua com campos sensíveis (senha, tokens) — usar DTO de saída ou `@Exclude`.
-- Injeção por construtor (`constructor(private readonly x: XService)`); nunca `new XService()`.
-- Erros com exceções HTTP do Nest (`NotFoundException`, `BadRequestException`...), não `throw new Error`.
-- Config via `ConfigService`; nunca `process.env` espalhado.
-- Async: sempre `await`/retornar promises; nada de promise solta.
-- Auth/permissão via Guards e decorators, não `if` no controller.
-- Lógica transversal (log, transformação) em Interceptors/Pipes, não duplicada.
+- Every input (body, query, params) has a DTO + `class-validator`; global `ValidationPipe`.
+- Responses do not expose a raw entity with sensitive fields (password, tokens) — use an output DTO or `@Exclude`.
+- Constructor injection (`constructor(private readonly x: XService)`); never `new XService()`.
+- Errors use Nest HTTP exceptions (`NotFoundException`, `BadRequestException`...), not `throw new Error`.
+- Config via `ConfigService`; never `process.env` scattered around the code.
+- Async: always `await` or return promises; no dangling promises.
+- Auth/permission via Guards and decorators, not `if` in the controller.
+- Cross-cutting logic (logging, transformation) in Interceptors/Pipes, not duplicated.
 
 ## Anti-patterns (blocking)
-- Controller importando Repository/PrismaClient.
-- Endpoint sem DTO de validação.
-- Dependência circular entre módulos (`forwardRef` sem justificativa).
-- Segredos em código; `console.log` em vez do Logger.
-- Query com string concatenada.
+- Controller importing Repository/PrismaClient.
+- Endpoint without a validation DTO.
+- Circular dependency between modules (`forwardRef` without justification).
+- Secrets in code; `console.log` instead of the Logger.
+- Query with concatenated string.
 
 ## Tests
-- Service: teste unitário com dependências mockadas (`Test.createTestingModule`).
-- Endpoint novo: teste e2e (supertest) do caminho feliz + 1 erro.
-- Teste testa comportamento, não chamadas internas.
+- Service: unit test with mocked dependencies (`Test.createTestingModule`).
+- New endpoint: e2e test (supertest) covering the happy path + 1 error.
+- Test checks behavior, not internal calls.
 
 ## PR
-- Um assunto por PR; migration junto com a mudança de entidade.
-- Descrição: contexto, endpoints afetados, como testar.
+- One topic per PR; migration together with the entity change.
+- Description: context, affected endpoints, how to test.
