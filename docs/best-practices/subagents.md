@@ -1,33 +1,33 @@
-# Boas práticas — Subagents
+# Best practices — Subagents
 
-## O que é
-Arquivo `.md` em `~/.claude/agents/` ou `<projeto>/.claude/agents/` com frontmatter.
-Roda com **contexto próprio** (não polui o principal) e devolve só um relatório.
+## What it is
+A `.md` file in `~/.claude/agents/` or `<project>/.claude/agents/` with frontmatter.
+It runs with **its own context** (does not pollute the main one) and returns only a report.
 
 ```yaml
 ---
 name: implementer
-description: Implementa uma tarefa já especificada, com TDD. Use para features padrão.
+description: Implements an already-specified task, with TDD. Use for standard features.
 model: sonnet          # haiku | sonnet | opus | inherit
 tools: Read, Edit, Write, Bash, Grep, Glob
 ---
-<system prompt do agente>
+<agent system prompt>
 ```
 
-## Quando usar
-- **Leitura ampla** (explorar repo, achar usos) → agente barato, devolve conclusão.
-- **Tarefas independentes em paralelo** → um agente por tarefa, cada um em worktree.
-- **Revisão** com olhar "frio" (sem o viés de quem implementou).
+## When to use
+- **Broad reading** (exploring the repo, finding usages) → cheap agent, returns the conclusion.
+- **Independent tasks in parallel** → one agent per task, each in a worktree.
+- **Review** with a "cold" eye (without the bias of whoever implemented it).
 
-## Quando NÃO usar
-- Tarefa pequena que você faria em 3 tool calls.
-- Tarefas que dependem do resultado uma da outra (rode em sequência).
-- Quando precisa de muito contexto da conversa (o agente começa do zero).
+## When NOT to use
+- Small task you would do in 3 tool calls.
+- Tasks that depend on each other's results (run them in sequence).
+- When it needs a lot of the conversation's context (the agent starts from scratch).
 
-## Regras
-1. **Prompt autossuficiente:** arquivos, objetivo, critério de pronto, o que NÃO tocar.
-2. **Peça o formato do retorno** (ex.: "devolva: arquivos alterados, testes, riscos").
-3. **Restrinja `tools`**: reviewer não precisa de Edit.
-4. **Modelo no frontmatter** é o jeito de fixar Haiku/Sonnet/Opus por papel.
-5. **Nunca dois agentes escrevendo os mesmos arquivos** — use worktrees.
-6. Confira o resultado (diff/testes); o relatório do agente não é prova.
+## Rules
+1. **Self-sufficient prompt:** files, goal, done criterion, what NOT to touch.
+2. **Ask for the return format** (e.g. "return: changed files, tests, risks").
+3. **Restrict `tools`**: a reviewer does not need Edit.
+4. **Model in the frontmatter** is how you pin Haiku/Sonnet/Opus per role.
+5. **Never two agents writing the same files** — use worktrees.
+6. Check the result (diff/tests); the agent's report is not proof.
