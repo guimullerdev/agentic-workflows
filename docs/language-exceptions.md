@@ -19,14 +19,6 @@ This file is excluded because it has to quote the Portuguese words it documents.
 | `README.md:~57` | `docs/PLANO.md` | Migration note: projects that still have the old plan must rename it to `docs/PLAN.md` and use English headers. The legacy name has to be spelled out. |
 | `skills/run-phase/SKILL.md:~26` | `docs/PLANO.md` | Migration-stop sentence: when only the legacy plan (or Portuguese headers) is found, run-phase stops and tells the user to migrate. There is no fallback parsing. |
 
-### Legacy Portuguese section titles (review-rules aliases)
-
-| Location | Pattern | Why |
-| --- | --- | --- |
-| `skills/pr-review/SKILL.md:~19` | `Arquitetura`, `Patterns obrigatórios`, `Anti-patterns (bloqueantes)`, `Testes` | pr-review still maps the old Portuguese `review-rules.md` section titles to the English ones. The old titles must be quoted to be matched. |
-| `skills/pr-review/reference/generic-checklist.md:~3` | same as above | Same alias mapping, repeated in the checklist. |
-| `skills/project-start/SKILL.md:~69` | `Histórico`, `Se o Estado diz` | Maps old Portuguese WORKFLOW.md headings (`History`, `If State says…`) so legacy files are recognized. |
-
 ### The plan's own history
 
 `docs/PLAN.md` records the translation project itself, so it quotes the Portuguese strings and the legacy name that earlier phases searched for and removed.
