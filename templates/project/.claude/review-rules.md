@@ -1,24 +1,24 @@
 # Review rules — <Project>
 
-> Lido pela skill global `pr-review`. Seja específico e cite arquivos-exemplo.
+> Read by the global `pr-review` skill. Be specific and cite example files.
 
 ## Architecture
-- `<camada A>` pode importar de `<camada B>`; nunca o contrário.
-- Exemplo correto: `<caminho/arquivo>`
+- `<layer A>` may import from `<layer B>`; never the other way around.
+- Correct example: `<path/file>`
 
 ## Required patterns
-- Estado: <ex.: server state via react-query; UI state local>. Exemplo: `<arquivo>`
-- Fetch: <ex.: só dentro de hooks em `src/api/`>.
-- Estilo: <ex.: Tailwind + tokens de `theme.ts`>.
-- Nomes: <componentes PascalCase, hooks `useX`, arquivos ...>.
+- State: <e.g. server state via react-query; local UI state>. Example: `<file>`
+- Fetch: <e.g. only inside hooks in `src/api/`>.
+- Style: <e.g. Tailwind + tokens from `theme.ts`>.
+- Naming: <components PascalCase, hooks `useX`, files ...>.
 
 ## Anti-patterns (blocking)
-- <ex.: fetch direto dentro de componente>
-- <ex.: lógica de negócio no backend fora de `services/`>
+- <e.g. fetching directly inside a component>
+- <e.g. backend business logic outside `services/`>
 
 ## Tests
-- <o que é obrigatório testar; onde ficam; lib>
+- <what must be tested; where tests live; library>
 
 ## PR
-- Um assunto por PR; < ~400 linhas quando possível.
-- Descrição com contexto, como testar e link da fase/issue.
+- One topic per PR; < ~400 lines when possible.
+- Description with context, how to test, and a link to the phase/issue.
