@@ -19,4 +19,4 @@ tests: <N ok, M falharam> — <failures as file:line + 1 line of reason>
 risks/doubts: <1 line each>   (omit if none)
 ```
 
-Nunca adicionar atribuição de IA (Co-Authored-By: Claude, "Generated with Claude Code", menção ao Claude) em commits, branches, PRs ou comentários.
+Never add AI attribution (Co-Authored-By: Claude, "Generated with Claude Code", mentions of Claude) in commits, branches, PRs or comments.
