@@ -2,7 +2,7 @@
 
 ## 1. Plan → phases → PRs (the main one)
 ```
-docs/PLANO.md  ──/run-phase N──▶ phase-planner (opus)
+docs/PLAN.md  ──/run-phase N──▶ phase-planner (opus)
                                    │ tasks + model + dependencies
                      ┌─────────────┼──────────────┐
               implementer-fast  implementer    architect→implementer
@@ -28,5 +28,5 @@ docs/PLANO.md  ──/run-phase N──▶ phase-planner (opus)
 
 ## Hygiene
 - Keep `CLAUDE.md` short: commands, architecture in 10 lines, rules. No tutorials.
-- Decisions live in `docs/` (ADR / PLANO), not in the conversation.
+- Decisions live in `docs/` (ADR / PLAN), not in the conversation.
 - Hooks (`settings.json`) for what **must** always happen (lint before commit).

@@ -24,7 +24,7 @@
   <g>
     <rect x="28" y="162" width="360" height="56" rx="6" fill="#ddf4ff" stroke="#54aeff"/>
     <text x="48" y="185" font-size="13.5" font-weight="600" fill="#1f2328">2 · Create the plan</text>
-    <text x="48" y="204" font-size="11.5" fill="#57606a">docs/PLANO.md in phases · architect (opus*)</text>
+    <text x="48" y="204" font-size="11.5" fill="#57606a">docs/PLAN.md in phases · architect (opus*)</text>
   </g>
   <text x="410" y="185" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace" fill="#0969da">/plan-create "&lt;goal&gt;"</text>
   <text x="410" y="204" font-size="11.5" fill="#57606a">reads the repo before proposing phases</text>

@@ -3,13 +3,13 @@
 ## What is already good
 - Yarn workspaces monorepo (`agent`, `backend`, `dashboard`, `shared`), CI running `yarn test`.
 - `CONTRIBUTING.md` is clear: 1 feature = 1 PR, TDD, Conventional Commits.
-- `docs/PLANO.md` with MVP, v2 and "Fases" — a perfect base for `/run-phase`.
+- `docs/PLAN.md` with MVP, v2 and "Phases" — a perfect base for `/run-phase`.
 - Project skill `.claude/skills/commit` (branch + PR, no AI attribution, human merge).
 
 ## Gaps for the agent workflow
 1. **No `CLAUDE.md`** — agents start without commands/architecture. Generate it with `/project-skill-bootstrap`.
-2. **Phases without atomic tasks** — the PLANO describes phases in prose. Ideal: each phase with a
-   list of tasks, files and a done criterion (the `phase-planner` does this on first use; it is worth saving the result in the PLANO itself).
+2. **Phases without atomic tasks** — the PLAN describes phases in prose. Ideal: each phase with a
+   list of tasks, files and a done criterion (the `phase-planner` does this on first use; it is worth saving the result in the PLAN itself).
 3. **No `.claude/review-rules.md`** — define limits: `shared` does not import from anyone;
    `dashboard` only talks to `backend` via HTTP; `agent` does not depend on `backend`.
 4. **Tests only in `@nm/shared`** — root `yarn test` runs only one workspace. For agents in parallel
