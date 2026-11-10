@@ -17,9 +17,9 @@ no commits on main.
 Return ONLY this block (max. ~20 lines; paths, never pasted code/diff/log;
 omit empty fields):
 ```
-status: ok | falhou | bloqueado
+status: ok | failed | blocked
 files: path/a.ts, path/b.ts
-tests: <N ok, M falharam> — <failures as file:line + 1 line of reason>
+tests: <N ok, M failed> — <failures as file:line + 1 line of reason>
 decisions: <only the non-obvious ones, 1 line each>   (omit if none)
 risks/doubts: <1 line each>   (omit if none)
 ```

@@ -1,7 +1,7 @@
-# Boas práticas — Git worktrees com agentes
+# Best practices — Git worktrees with agents
 
-Worktree = outro diretório de trabalho do mesmo repo, em outra branch. Permite
-N agentes trabalhando em paralelo sem conflito de arquivos.
+A worktree is another working directory of the same repo, on another branch. It lets
+N agents work in parallel without file conflicts.
 
 ```bash
 git worktree add ../app-wt/feat-badge -b feat/badge main
@@ -9,11 +9,10 @@ git worktree list
 git worktree remove ../app-wt/feat-badge
 ```
 
-No Claude Code: `isolation: "worktree"` no Agent tool, ou `claude --worktree`.
+In Claude Code: `isolation: "worktree"` in the Agent tool, or `claude --worktree`.
 
-## Regras
-1. **Uma tarefa = uma worktree = uma branch = um PR.**
-2. Divida por **fronteira de arquivos**: se duas tarefas tocam o mesmo arquivo,
-   não são paralelas — serialize.
-3. Integração: faça merge dos PRs em ordem de dependência; rebase o resto.
-4. Limpe: `git worktree prune` depois do merge.
+## Rules
+1. **One task = one worktree = one branch = one PR.**
+2. Split by **file boundary**: if two tasks touch the same file, they are not parallel — serialize them.
+3. Integration: merge the PRs in dependency order; rebase the rest.
+4. Clean up: `git worktree prune` after the merge.
