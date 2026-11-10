@@ -64,9 +64,8 @@ initial folder structure, out of scope and open questions. Wait for approval.
 
 ### 6. "Where am I" mode (no argument)
 - Read `docs/WORKFLOW.md`, `docs/PLAN.md` and `gh pr list --state open`.
-  The `WORKFLOW.md` headers may be in English or in the legacy Portuguese ones.
-  Treat them as equivalent: State = Estado; Cycle = Ciclo; Cycle rules = Regras do ciclo;
-  History = Histórico; "If State says…" = "Se o Estado diz…" (Setup is the same).
+  The `WORKFLOW.md` headers are English only (State, Cycle, Cycle rules, History, Setup).
+  If they are in Portuguese, stop and tell the user to translate the headers first.
 - Check the State against reality (phase marked without a merged PR, merged PR with
   an open phase…) and fix the State if it is outdated, showing the diff.
 - Answer in 3 lines: current stage, what is missing to close it, next command
