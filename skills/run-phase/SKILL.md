@@ -13,6 +13,7 @@ argument-hint: "<fase> [fase...] [--plan caminho] [--dry-run]"
 
 ## Regras inegociáveis
 - Nunca commitar na `main`. Uma tarefa = uma branch = um PR.
+- Nunca adicionar atribuição de IA (Co-Authored-By: Claude, "Generated with Claude Code", menção ao Claude) em commits, branches, PRs ou comentários.
 - Nunca fazer merge. O merge é do usuário.
 - Duas tarefas que tocam o mesmo arquivo **não** rodam em paralelo.
 - Sem plano aprovado pelo usuário, nada é implementado.

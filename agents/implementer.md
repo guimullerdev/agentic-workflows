@@ -23,3 +23,5 @@ tests: <N ok, M falharam> — <falha em arquivo:linha + motivo em 1 linha>
 decisions: <só as não óbvias, 1 linha cada>
 risks/doubts: <1 linha cada>
 ```
+
+Nunca adicionar atribuição de IA (Co-Authored-By: Claude, "Generated with Claude Code", menção ao Claude) em commits, branches, PRs ou comentários.
