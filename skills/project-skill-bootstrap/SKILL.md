@@ -1,35 +1,35 @@
 ---
 name: project-skill-bootstrap
 description: >-
-  Analisa o repositório atual e gera a configuração .claude/ específica do
-  projeto: CLAUDE.md, review-rules.md (padrões de arquitetura e PR) e, se
-  pedido, skills próprias do projeto. Use quando o usuário disser "configura o
-  claude nesse projeto", "cria uma skill de review pra esse projeto", "gera as
-  regras de PR daqui" ou digitar /project-skill-bootstrap.
+  Analyzes the current repository and generates the project-specific .claude/
+  configuration: CLAUDE.md, review-rules.md (architecture and PR patterns) and,
+  if requested, project-own skills. Use when the user says "set up claude in
+  this project", "create a review skill for this project", "generate the PR
+  rules here" or types /project-skill-bootstrap.
 ---
 
 # project-skill-bootstrap
 
-## 1. Levantar fatos (use um subagent Explore/haiku para leitura ampla)
-- Stack e framework (NestJS, Spring, React...), comandos de teste e lint.
-- Estrutura de pastas e camadas (ex.: `packages/*`, `src/features/*`).
-- Padrões reais: estado, fetch, estilos, testes, nomes. Cite 1 arquivo exemplo de cada.
-- Convenções de git: branches, commits, template de PR, CI.
-- Regras já escritas: CONTRIBUTING, ADRs, lint configs.
+## 1. Gather facts (use an Explore/haiku subagent for broad reading)
+- Stack and framework (NestJS, Spring, React...), test and lint commands.
+- Folder structure and layers (e.g. `packages/*`, `src/features/*`).
+- Real patterns: state, fetch, styles, tests, naming. Cite 1 example file for each.
+- Git conventions: branches, commits, PR template, CI.
+- Rules already written: CONTRIBUTING, ADRs, lint configs.
 
-Não suba o app, Docker ou banco: o objetivo são os patterns do código.
+Do not start the app, Docker or a database: the goal is the code's patterns.
 
-## 2. Gerar (a partir de `templates/` deste repo)
-- Parta do modelo da stack em `reference/stacks/<stack>.md` (nestjs, spring, react) e ajuste ao que
-  o código realmente faz.
-- `CLAUDE.md` — ≤ 60 linhas: comandos, mapa da arquitetura, regras.
-- `.claude/review-rules.md` — usado pela skill global `pr-review`:
-  camadas e imports permitidos, patterns obrigatórios (com arquivo exemplo),
-  anti-patterns, requisitos de teste, checklist de PR. Use os títulos em inglês do modelo:
+## 2. Generate (from `templates/` in this repo)
+- Start from the stack template in `reference/stacks/<stack>.md` (nestjs, spring, react) and adjust it to what
+  the code actually does.
+- `CLAUDE.md` — ≤ 60 lines: commands, architecture map, rules.
+- `.claude/review-rules.md` — used by the global `pr-review` skill:
+  layers and allowed imports, required patterns (with an example file),
+  anti-patterns, test requirements, PR checklist. Use the English headings from the template:
   `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`.
-  Ao atualizar um arquivo existente com títulos legados em português, mantenha o conteúdo e migre os títulos.
-- Opcional: `.claude/skills/<nome>/SKILL.md` para fluxos só deste projeto.
+  When updating an existing file with legacy Portuguese headings, keep the content and migrate the headings.
+- Optional: `.claude/skills/<name>/SKILL.md` for flows specific to this project.
 
-## 3. Confirmar
-Mostre as regras inferidas e marque o que é **inferido** vs **documentado**.
-O usuário aprova antes de gravar. Não invente regra que o código não mostra.
+## 3. Confirm
+Show the inferred rules and mark what is **inferred** vs **documented**.
+The user approves before writing. Do not invent a rule the code does not show.

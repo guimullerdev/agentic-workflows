@@ -13,6 +13,7 @@ argument-hint: "<phase> [phase...] [--plan path] [--dry-run]"
 
 ## Non-negotiable rules
 - Never commit to `main`. One task = one branch = one PR.
+- Never add AI attribution (Co-Authored-By: Claude, "Generated with Claude Code", mentions of Claude) in commits, branches, PRs or comments.
 - Never merge. Merging is the user's job.
 - Two tasks that touch the same file do **not** run in parallel.
 - Without a plan approved by the user, nothing is implemented.
