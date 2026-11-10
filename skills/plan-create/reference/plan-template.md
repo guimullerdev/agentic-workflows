@@ -1,25 +1,25 @@
-# Plano — <nome do projeto>
+# Plan — <project name>
 
-> Objetivo: <uma frase com o resultado observável>
-> Fora de escopo: <o que explicitamente não entra>
+> Goal: <one sentence with the observable result>
+> Out of scope: <what is explicitly not included>
 
-## Fase 1 — <título curto>
+## Phase 1 — <short title>
 
-- **Objetivo:** o que esta fase entrega.
-- **Jira:** `PROJ-124` (opcional; preenchido pelo `jira-plan`)
-- **Depende de:** — (ou `Fase N`)
-- **Escopo:** 2 a 5 bullets do que será feito.
-- **Fora de escopo:** o que fica para outra fase (evita o agente expandir sozinho).
-- **Arquivos prováveis:** `src/...`, `src/...`
-- **Critério de pronto:** comando ou comportamento verificável. Ex.: `pnpm test
-  src/auth` verde e `POST /login` devolve 401 com senha errada.
-- **Risco:** o que pode dar errado / precisa de decisão humana.
-- [ ] concluída
+- **Goal:** what this phase delivers.
+- **Jira:** `PROJ-124` (optional; filled in by `jira-plan`)
+- **Depends on:** — (or `Phase N`)
+- **Scope:** 2 to 5 bullets of what will be done.
+- **Out of scope:** what is left for another phase (prevents the agent from expanding on its own).
+- **Likely files:** `src/...`, `src/...`
+- **Done criteria:** verifiable command or behavior. E.g.: `pnpm test
+  src/auth` green and `POST /login` returns 401 with a wrong password.
+- **Risk:** what can go wrong / needs a human decision.
+- [ ] done
 
-## Fase 2 — <título curto>
+## Phase 2 — <short title>
 
 ...
 
-## Perguntas em aberto
+## Open questions
 
-- <decisão que depende do usuário e trava alguma fase>
+- <decision that depends on the user and blocks some phase>

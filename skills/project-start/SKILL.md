@@ -63,7 +63,7 @@ estrutura de pastas inicial, fora de escopo e perguntas em aberto. Espere aprova
   `/plan-create "<objetivo da ficha>"`.
 
 ### 6. Modo "onde estou" (sem argumento)
-- Leia `docs/WORKFLOW.md`, `docs/PLANO.md` e `gh pr list --state open`.
+- Leia `docs/WORKFLOW.md`, `docs/PLAN.md` e `gh pr list --state open`.
 - Confronte o Estado com a realidade (fase marcada sem PR mergeado, PR mergeado com
   fase aberta…) e corrija o Estado se estiver desatualizado, mostrando o diff.
 - Responda em 3 linhas: etapa atual, o que falta para fechá-la, próximo comando

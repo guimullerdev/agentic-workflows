@@ -2,7 +2,7 @@
 name: jira-plan
 description: >-
   Lê uma task do Jira com suas subtasks (descrição, critérios de aceite,
-  comentários, links), cruza com o repositório e grava docs/PLANO.md em fases no
+  comentários, links), cruza com o repositório e grava docs/PLAN.md em fases no
   formato que run-phase consome, com a chave do Jira em cada fase. Use quando o
   usuário disser "pega a task PROJ-123 do jira", "planeja essa issue", "quebra
   esse épico/história em fases", colar um link do Jira ou digitar /jira-plan.
@@ -12,7 +12,7 @@ argument-hint: "<CHAVE-123 | link do Jira> [--plan caminho] [--dry-run]"
 # jira-plan
 
 Variante do `plan-create` cuja entrada é uma task do Jira, não um objetivo solto.
-Mesmo contrato de saída: `docs/PLANO.md` no formato de
+Mesmo contrato de saída: `docs/PLAN.md` no formato de
 `../plan-create/reference/plan-template.md`. Depois, o ciclo segue igual:
 `/run-phase <n> --dry-run` → `/run-phase <n>`.
 
@@ -62,7 +62,7 @@ Regras do mapeamento:
 - **Ponto de partida: 1 subtask = 1 fase.** Funda subtasks pequenas que só fazem
   sentido juntas; quebre subtask grande demais (mais de 5 PRs) em duas fases.
 - Cada fase registra `**Jira:**` com a(s) chave(s) de origem.
-- Critério de pronto = critérios de aceite da subtask, reescritos como algo
+- Done criteria = critérios de aceite da subtask, reescritos como algo
   **verificável** (comando, teste, comportamento). Critério vago no Jira → pergunta em aberto.
 - Dependências: links `is blocked by` + o que o código exige. Ordene por risco.
 - Subtask sem relação com código (deploy manual, alinhamento, doc externa) → fica fora
@@ -70,7 +70,7 @@ Regras do mapeamento:
 - Gaps detectados (requisito sem subtask, subtask contraditória) → "Perguntas em aberto".
 
 ### 5. Confirmar com o usuário
-Mostre: tabela `Fase | Jira | Objetivo | Critério de pronto | Depende de`, as subtasks
+Mostre: tabela `Phase | Jira | Goal | Done criteria | Depends on`, as subtasks
 fora do plano e as perguntas em aberto. Se `--dry-run`, pare aqui sem gravar nada.
 O usuário pode cortar, reordenar ou fundir fases.
 
@@ -82,7 +82,7 @@ commit só do plano em branch própria `docs/plan-<KEY>`). No cabeçalho do plan
 # Plano — <título da issue>
 
 > Jira: <KEY> (<tipo>, <status>)
-> Objetivo: ...
+> Goal: ...
 ```
 
 ### 7. Entregar
