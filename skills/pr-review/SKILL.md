@@ -16,7 +16,7 @@ a database or a server, and does not need to understand the project's runtime �
 only whether the code follows the defined patterns.
 
 ## 1. Load the project rules (in this order, all that exist)
-1. `.claude/review-rules.md` — project-specific rules (main source). Sections: `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`. Also accept the legacy Portuguese titles as equivalents: `Arquitetura`/`Arquitetura e camadas` = Architecture, `Patterns obrigatórios` = Required patterns, `Anti-patterns (bloqueantes)` = Anti-patterns (blocking), `Testes` = Tests.
+1. `.claude/review-rules.md` — project-specific rules (main source). Sections: `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`.
 2. `CLAUDE.md`, `CONTRIBUTING.md`, `docs/adr/*`, `docs/architecture*`
 3. Configs: eslint, tsconfig, prettier (what the tool already catches, do not comment on)
 4. If nothing exists: use the stack template in `reference/stacks/`
