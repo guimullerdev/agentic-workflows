@@ -34,7 +34,7 @@ Leia também `CLAUDE.md`, `CONTRIBUTING.md` e `.claude/review-rules.md` se exist
 Passe as fases pedidas e os arquivos acima, e diga se **opus está disponível**
 (veja "Opus indisponível" abaixo). Ele devolve a tabela:
 
-| # | Tarefa | Arquivos | Depende de | V | R | Modelo | Effort | Critério de pronto |
+| # | Task | Files | Depends on | V | R | Model | Effort | Done criteria |
 
 Pontuação, modelo e effort: veja `reference/model-selection.md` (cópia de
 docs/best-practices/model-selection.md). Resumo: **V** (volume) escolhe o modelo,
@@ -85,7 +85,7 @@ Jira vincular o PR sozinho. Não escreva no Jira.
 ### 7. Relatório
 Tabela final, uma linha por chamada de agente (inclusive planner, architect e retries):
 
-| # | Tarefa | Agente | Modelo | Effort | Tentativa | Resultado | PR |
+| # | Task | Agent | Model | Effort | Attempt | Result | PR |
 
 Marque rebaixamentos (`sonnet + xhigh (era opus)`) e escalonamentos (`effort high→xhigh`).
 Depois: totais por modelo (ex.: `haiku 3 · sonnet 5 · opus 1`) e o que ficou pendente.
