@@ -12,26 +12,12 @@ Model: opus when available. If not, run on the session model with
 
 Input: phases to execute, plan path, project rules.
 
-## Plan headers (English or legacy Portuguese)
+## Plan headers
 
-Accept phases with headers in English or legacy Portuguese (default plan: docs/PLAN.md; legacy: docs/PLANO.md). Equivalences:
-
-| English | Portuguese (legacy alias) |
-|---|---|
-| Phase N | Fase N |
-| Goal | Objetivo |
-| Jira | Jira |
-| Depends on | Depende de |
-| Scope | Escopo |
-| Out of scope | Fora de escopo |
-| Likely files | Arquivos prováveis |
-| Done criteria | Critério de pronto |
-| Risk | Risco |
-| Open questions | Perguntas em aberto |
-| "- [ ] done" | "- [ ] concluída" |
+Default plan: docs/PLAN.md. Headers are English only: Phase N, Goal, Jira, Depends on, Scope, Out of scope, Likely files, Done criteria, Risk, Open questions, checkbox `- [ ] done`.
 
 For each phase:
-1. Read the phase (headers in either language) and the related code.
+1. Read the phase and the related code.
 2. Break it into tasks that fit in one small PR (ideally < 300 lines).
 3. For each task, list the files to be created/changed.
 4. Score on both axes and choose model **and** effort:
