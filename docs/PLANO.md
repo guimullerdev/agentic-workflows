@@ -51,7 +51,7 @@
 - **Depende de:** Fase 3
 - **Escopo:**
   - `docs/best-practices/*.md`; `model-selection.md` mantém o nome (install.sh cria link para ele).
-  - Texto do `docs/flow.svg`; renomear para `flow.svg` se a pergunta 3 aprovar, atualizando referências.
+  - Texto do `docs/flow.svg` (renomeado de `fluxo.svg`), referências atualizadas.
   - `notes/notebook-monitor.md` e prosa restante dos templates.
 - **Fora de escopo:** README, ESTRUTURA.
 - **Arquivos prováveis:** `docs/**`, `notes/**`, `templates/**`
@@ -77,6 +77,6 @@
 
 1. Renomear `PLANO.md` → `PLAN.md` mantendo `PLANO.md` como fallback? Por quanto tempo?
 2. Manter gatilhos bilíngues (PT e EN) nas descriptions do frontmatter? **Decidido (2026-11-10): só inglês.**
-3. Renomear `ESTRUTURA.md` → `STRUCTURE.md` e `fluxo.svg` → `flow.svg`? Versionar o ESTRUTURA.md? **Decidido (2026-11-10): renomeado para flow.svg.**
+3. Renomear `ESTRUTURA.md` → `STRUCTURE.md` e `fluxo.svg` → `flow.svg`? Versionar o ESTRUTURA.md? **Parcial (2026-11-10): `fluxo.svg` renomeado para `flow.svg` na Fase 4; `ESTRUTURA.md` ainda em aberto (Fase 5).**
 4. O plan-template fica em inglês de vez (phase-planner aceita os dois idiomas) ou o plano continua em português? **Decidido (2026-11-10): inglês de vez.**
 5. WORKFLOW.md e PLANO.md antigos em projetos que já usam o kit: migrar, aceitar os dois formatos ou ignorar?
