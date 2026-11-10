@@ -54,7 +54,7 @@ estrutura de pastas inicial, fora de escopo e perguntas em aberto. Espere aprova
   **inferido** — em projeto novo quase tudo é; vai ser refinado com
   `/project-skill-bootstrap` depois que houver código.
 - `docs/WORKFLOW.md` a partir do template: marque `[x]` nas etapas 0 e 1 concluídas,
-  Estado = "Etapa 2 — Plano", data de hoje, e uma linha no Histórico.
+  State = "Etapa 2 — Plano", data de hoje, e uma linha no History.
 
 ### 5. Commit e entrega
 - Um commit `chore: bootstrap project with agentic workflow` na `main` (repo novo
@@ -64,9 +64,12 @@ estrutura de pastas inicial, fora de escopo e perguntas em aberto. Espere aprova
 
 ### 6. Modo "onde estou" (sem argumento)
 - Leia `docs/WORKFLOW.md`, `docs/PLAN.md` e `gh pr list --state open`.
-- Confronte o Estado com a realidade (fase marcada sem PR mergeado, PR mergeado com
-  fase aberta…) e corrija o Estado se estiver desatualizado, mostrando o diff.
+  Os cabeçalhos do `WORKFLOW.md` podem estar em inglês ou nos legados em português.
+  Trate como equivalentes: State = Estado; Cycle = Ciclo; Cycle rules = Regras do ciclo;
+  History = Histórico; "If State says…" = "Se o Estado diz…" (Setup é igual).
+- Confronte o State com a realidade (fase marcada sem PR mergeado, PR mergeado com
+  fase aberta…) e corrija o State se estiver desatualizado, mostrando o diff.
 - Responda em 3 linhas: etapa atual, o que falta para fechá-la, próximo comando
-  (use a tabela "Se o Estado diz…" do `WORKFLOW.md`).
+  (use a tabela "If State says…" do `WORKFLOW.md`).
 - Sem `WORKFLOW.md` mas com código: ofereça criá-lo a partir do template e rodar
   `/project-skill-bootstrap`.
