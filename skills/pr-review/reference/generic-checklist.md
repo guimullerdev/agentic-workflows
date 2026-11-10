@@ -1,5 +1,7 @@
 # Checklist genérico de review
 
+Use quando não houver `.claude/review-rules.md`; cobre as seções `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests` e `PR` (legado: Arquitetura, Patterns obrigatórios, Anti-patterns (bloqueantes), Testes).
+
 - [ ] O PR faz uma coisa só e o título descreve isso
 - [ ] Nomes revelam intenção; sem abreviações obscuras
 - [ ] Funções pequenas, sem efeitos colaterais escondidos

@@ -1,22 +1,22 @@
-# Regras de review — <Projeto>
+# Review rules — <Project>
 
 > Lido pela skill global `pr-review`. Seja específico e cite arquivos-exemplo.
 
-## Arquitetura e camadas
+## Architecture
 - `<camada A>` pode importar de `<camada B>`; nunca o contrário.
 - Exemplo correto: `<caminho/arquivo>`
 
-## Patterns obrigatórios
+## Required patterns
 - Estado: <ex.: server state via react-query; UI state local>. Exemplo: `<arquivo>`
 - Fetch: <ex.: só dentro de hooks em `src/api/`>.
 - Estilo: <ex.: Tailwind + tokens de `theme.ts`>.
 - Nomes: <componentes PascalCase, hooks `useX`, arquivos ...>.
 
-## Anti-patterns (bloqueantes)
+## Anti-patterns (blocking)
 - <ex.: fetch direto dentro de componente>
 - <ex.: lógica de negócio no backend fora de `services/`>
 
-## Testes
+## Tests
 - <o que é obrigatório testar; onde ficam; lib>
 
 ## PR

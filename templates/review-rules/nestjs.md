@@ -1,8 +1,8 @@
-# Regras de review — <Projeto> (NestJS)
+# Review rules — <Project> (NestJS)
 
 > Copie para `<projeto>/.claude/review-rules.md` e ajuste. Apague o que não se aplica.
 
-## Arquitetura
+## Architecture
 - Um módulo por domínio: `src/<dominio>/{<dominio>.module,controller,service}.ts`, `dto/`, `entities/`.
 - **Controller**: só recebe request, valida (DTO) e chama o Service. Sem regra de negócio, sem acesso a banco.
 - **Service**: regra de negócio. Acessa dados só via Repository/ORM injetado.
@@ -10,7 +10,7 @@
 - Módulo só usa providers de outro módulo se este os `exports`. Sem import de caminho interno de outro domínio.
 - Exemplo de módulo correto: `src/<exemplo>/`
 
-## Patterns obrigatórios
+## Required patterns
 - Toda entrada (body, query, params) com DTO + `class-validator`; `ValidationPipe` global.
 - Resposta não expõe entidade crua com campos sensíveis (senha, tokens) — usar DTO de saída ou `@Exclude`.
 - Injeção por construtor (`constructor(private readonly x: XService)`); nunca `new XService()`.
@@ -20,14 +20,14 @@
 - Auth/permissão via Guards e decorators, não `if` no controller.
 - Lógica transversal (log, transformação) em Interceptors/Pipes, não duplicada.
 
-## Anti-patterns (bloqueantes)
+## Anti-patterns (blocking)
 - Controller importando Repository/PrismaClient.
 - Endpoint sem DTO de validação.
 - Dependência circular entre módulos (`forwardRef` sem justificativa).
 - Segredos em código; `console.log` em vez do Logger.
 - Query com string concatenada.
 
-## Testes
+## Tests
 - Service: teste unitário com dependências mockadas (`Test.createTestingModule`).
 - Endpoint novo: teste e2e (supertest) do caminho feliz + 1 erro.
 - Teste testa comportamento, não chamadas internas.
