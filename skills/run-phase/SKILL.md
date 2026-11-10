@@ -21,14 +21,13 @@ argument-hint: "<phase> [phase...] [--plan path] [--dry-run]"
 ## Steps
 
 ### 1. Locate the plan
-Look in this order: `--plan`, `docs/PLAN.md`, `PLAN.md`, `docs/PLANO.md` (legacy fallback), `ROADMAP.md`.
+Look in this order: `--plan`, `docs/PLAN.md`, `PLAN.md`, `ROADMAP.md`.
 
-Phases may use English headers or the legacy Portuguese ones. Treat them as equivalent:
-Phase N = Fase N; Goal = Objetivo; Jira = Jira; Depends on = Depende de; Scope = Escopo;
-Out of scope = Fora de escopo; Likely files = Arquivos prováveis; Done criteria = Critério de pronto;
-Risk = Risco; Open questions = Perguntas em aberto; checkbox `- [ ] done` = `- [ ] concluída` (and `[x]`).
-The "next phase" is the first one with an unchecked box, in either language. When marking
-completion, use the same language the plan already uses.
+If the only plan found is `docs/PLANO.md`, or the plan uses Portuguese headers, stop without parsing it and tell the user to migrate (rename to `docs/PLAN.md` and switch to the English headers).
+
+Phase headers are English only: Phase N, Goal, Jira, Depends on, Scope, Out of scope,
+Likely files, Done criteria, Risk, Open questions, and the checkbox `- [ ] done` (or `- [x] done`).
+The "next phase" is the first one with an unchecked box.
 Also read `CLAUDE.md`, `CONTRIBUTING.md` and `.claude/review-rules.md` if they exist.
 
 ### 2. Plan (subagent `phase-planner`)
