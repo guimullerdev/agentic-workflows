@@ -39,7 +39,7 @@ For each phase:
    - **R** (reasoning: design decision, ambiguity, risk) → effort: 0–1 default,
      2–3 `medium`, 4 `high`, 5–6 `xhigh`. Never `max` on your own.
    - V ≤ 1 and R ≥ 4 → prefer sonnet + `high` over opus.
-   - Opus unavailable on the account? Mark the task as `sonnet + xhigh (era opus)` instead
+   - Opus unavailable on the account? Mark the task as `sonnet + xhigh (was opus)` instead
      of pretending it is equivalent. The caller tells you whether opus is available.
 5. Mark dependencies and group into parallel batches (no files in common).
 
