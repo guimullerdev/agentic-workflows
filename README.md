@@ -1,163 +1,167 @@
 # agentic-workflows
 
-Biblioteca pessoal de **skills, subagents, workflows e boas práticas** para Claude Code,
-reaproveitável em projetos pessoais e no trabalho.
+Personal library of **skills, subagents, workflows and best practices** for Claude Code,
+reusable in personal and work projects.
 
-A ideia: você pensa o projeto e aprova as decisões; os agentes quebram as fases em
-tarefas, escolhem o modelo de cada uma, implementam em paralelo e abrem os PRs. O merge
-é sempre seu.
+The idea: you think through the project and approve the decisions; the agents break the phases into
+tasks, choose the model for each one, implement in parallel and open the PRs. The merge
+is always yours.
 
-## Instalação
+## Installation
 
 ```bash
-./scripts/install.sh            # global: ~/.claude/skills e ~/.claude/agents
-./scripts/install.sh ../meu-app # num projeto: ../meu-app/.claude/
+./scripts/install.sh            # global: ~/.claude/skills and ~/.claude/agents
+./scripts/install.sh ../my-app  # in a project: ../my-app/.claude/
 ```
 
-Symlinks: editou aqui, vale em todo lugar.
+Symlinks: edit here, it applies everywhere.
 
-- **Prefira o global.** A instalação por projeto cria symlinks absolutos para esta máquina;
-  se o `.claude/` do app for commitado, eles quebram para outras pessoas e no CI.
-- **Skill ou agent novo exige rodar o script de novo.** O link só é criado quando o script
-  roda; editar algo que já existe não precisa.
+- **Prefer the global install.** A per-project install creates absolute symlinks for this machine;
+  if the app's `.claude/` is committed, they break for other people and in CI.
+- **A new skill or agent requires running the script again.** The link is only created when the script
+  runs; editing something that already exists does not require it.
 
-## Uso rápido
+## Quick start
 
-**Projeto novo**, na pasta do app:
+**New project**, in the app folder:
 
 ```text
-/project-start "<ideia em uma frase>"   # entrevista, stack, esqueleto, CLAUDE.md, review-rules.md, docs/WORKFLOW.md
-/plan-create "<objetivo>" --dry-run     # vê as fases sem gravar
-/plan-create "<objetivo>"               # grava docs/PLANO.md
-/run-phase 1 --dry-run                  # vê tarefas, modelo e effort de cada uma
-/run-phase 1                            # executa: 1 worktree e 1 PR por tarefa
+/project-start "<idea in one sentence>"   # interview, stack, skeleton, CLAUDE.md, review-rules.md, docs/WORKFLOW.md
+/plan-create "<goal>" --dry-run           # see the phases without writing
+/plan-create "<goal>"                     # writes docs/PLAN.md
+/run-phase 1 --dry-run                    # see tasks, model and effort of each one
+/run-phase 1                              # runs: 1 worktree and 1 PR per task
 ```
 
-**Projeto que já tem código:** troque o primeiro passo por `/project-skill-bootstrap`
-(gera `CLAUDE.md` e `review-rules.md` a partir do repositório).
+**Project that already has code:** replace the first step with `/project-skill-bootstrap`
+(generates `CLAUDE.md` and `review-rules.md` from the repository).
 
-**A partir de uma task do Jira:** troque o `/plan-create` por `/jira-plan`. Ele lê a
-task e as subtasks e grava o mesmo `docs/PLANO.md`, com a chave do Jira em cada fase:
+**From a Jira task:** replace `/plan-create` with `/jira-plan`. It reads the
+task and its subtasks and writes the same `docs/PLAN.md`, with the Jira key on each phase:
 
 ```text
-/jira-plan PROJ-123 --dry-run   # vê o mapeamento subtask → fase sem gravar
-/jira-plan PROJ-123             # grava docs/PLANO.md
-/run-phase 1 --dry-run          # daqui em diante, igual
-/run-phase 1                    # branch feat/PROJ-124-<slug>, PR com a chave no título
+/jira-plan PROJ-123 --dry-run   # see the subtask → phase mapping without writing
+/jira-plan PROJ-123             # writes docs/PLAN.md
+/run-phase 1 --dry-run          # from here on, same as above
+/run-phase 1                    # branch feat/PROJ-124-<slug>, PR with the key in the title
 ```
 
-Precisa do Atlassian MCP conectado (ou `acli`/`jira` CLI autenticada). A skill só
-**lê** o Jira; escrever lá (comentário, transição) só com pedido seu e confirmação.
+Requires the Atlassian MCP connected (or an authenticated `acli`/`jira` CLI). The skill only
+**reads** Jira; writing there (comment, transition) only on your request and with confirmation.
 
-**Perdido?** `/project-start` sem argumento lê `docs/WORKFLOW.md` e diz em que etapa você
-está e qual o próximo comando. Rode cada etapa numa sessão nova para não arrastar contexto.
+**Lost?** `/project-start` without an argument reads `docs/WORKFLOW.md` and tells you which stage
+you are in and what the next command is. Run each stage in a new session so you don't carry over context.
 
-## Fluxo completo
+### Migrating from older versions
+
+Projects that still have `docs/PLANO.md` must rename it to `docs/PLAN.md` and use English phase
+headers (`## Phase N — <title>`), since `run-phase` only reads `docs/PLAN.md`.
+
+## Full flow
 
 ![Flow from project to merge](docs/flow.svg)
 
-| # | Etapa | Comando | Quem executa |
-|---|-------|---------|--------------|
-| 1 | Pensar o projeto: contexto, stack, regras de review | `/project-start` (do zero) ou `/project-skill-bootstrap` (código existente) | skill |
-| 2 | Revisar as fases propostas, sem gravar nada | `/plan-create "<objetivo>" --dry-run` | `architect` (opus\*) |
-| 3 | Gravar `docs/PLANO.md` | `/plan-create "<objetivo>"` ou `/jira-plan <KEY>` | `architect` (opus\*) |
-| 4 | Quebrar a fase em tarefas e escolher modelo + effort, sem executar | `/run-phase <fase> --dry-run` | `phase-planner` (opus\*) |
-| 5 | Executar a fase em lotes paralelos, 1 worktree por tarefa | `/run-phase <fase>` | `implementer-fast` / `implementer` / `architect` |
-| 6 | Abrir um PR por tarefa (1 tarefa = 1 branch = 1 PR) | `/pr-create` | skill (chamada pelo `run-phase`) |
-| 7 | Revisar contra `.claude/review-rules.md` e caçar bugs | `/pr-review <n>`, `/code-review high --comment` | `pr-reviewer` + review nativo |
-| 8 | Merge e marcar a fase como concluída no plano | `gh pr merge` | sempre humano |
+| # | Stage | Command | Who runs it |
+|---|-------|---------|-------------|
+| 1 | Think through the project: context, stack, review rules | `/project-start` (from scratch) or `/project-skill-bootstrap` (existing code) | skill |
+| 2 | Review the proposed phases, without writing anything | `/plan-create "<goal>" --dry-run` | `architect` (opus\*) |
+| 3 | Write `docs/PLAN.md` | `/plan-create "<goal>"` or `/jira-plan <KEY>` | `architect` (opus\*) |
+| 4 | Break the phase into tasks and choose model + effort, without executing | `/run-phase <phase> --dry-run` | `phase-planner` (opus\*) |
+| 5 | Execute the phase in parallel batches, 1 worktree per task | `/run-phase <phase>` | `implementer-fast` / `implementer` / `architect` |
+| 6 | Open one PR per task (1 task = 1 branch = 1 PR) | `/pr-create` | skill (called by `run-phase`) |
+| 7 | Review against `.claude/review-rules.md` and hunt for bugs | `/pr-review <n>`, `/code-review high --comment` | `pr-reviewer` + native review |
+| 8 | Merge and mark the phase as done in the plan | `gh pr merge` | always human |
 
-Antes de rodar uma fase, resolva as **perguntas em aberto** do plano que a afetam;
-senão o agente trava ou decide sozinho.
+Before running a phase, resolve the **open questions** in the plan that affect it;
+otherwise the agent gets stuck or decides on its own.
 
-### O que o `--dry-run` faz
+### What `--dry-run` does
 
-Mostra o resultado **sem efeito colateral**, para você revisar antes de gastar tokens:
+Shows the result **with no side effects**, so you can review it before spending tokens:
 
-- **`/plan-create --dry-run`**: exibe as fases e as perguntas em aberto; **não grava**
-  o `PLANO.md`.
-- **`/run-phase <fase> --dry-run`**: exibe a tabela de tarefas e os lotes paralelos;
-  **não cria** worktree, não escreve código, não abre PR.
+- **`/plan-create --dry-run`**: shows the phases and the open questions; **does not write**
+  the `PLAN.md`.
+- **`/run-phase <phase> --dry-run`**: shows the task table and the parallel batches;
+  **does not create** a worktree, write code or open a PR.
 
 ```text
-| # | Tarefa | Arquivos | Depende de | V | R | Modelo | Effort | Critério de pronto |
+| # | Task | Files | Depends on | V | R | Model | Effort | Done criteria |
 ```
 
-Não gostou de um modelo ou effort? Peça a troca e rode sem a flag.
+Don't like a model or effort? Ask for a change and run without the flag.
 
-Sem a flag, o `run-phase` mostra cada chamada de agente enquanto roda e termina com um
-relatório de todas elas (inclusive planner, architect e novas tentativas), com o total
-por modelo:
+Without the flag, `run-phase` shows each agent call while it runs and ends with a
+report of all of them (including planner, architect and retries), with the total
+per model:
 
 ```text
 ▶ T2 login form → implementer · sonnet · effort high · worktree feat/PROJ-124-login-form
-✔ T2 implementer (sonnet) — form + testes passando
+✔ T2 implementer (sonnet) — form + tests passing
 
-| # | Tarefa | Agente | Modelo | Effort | Tentativa | Resultado | PR |
+| # | Task | Agent | Model | Effort | Attempt | Result | PR |
 haiku 3 · sonnet 5 · opus 1
 ```
 
-### Onde fica o modelo de cada tarefa
+### Where each task's model is set
 
-**Não fica no `PLANO.md`**, de propósito. O plano descreve só fases (objetivo, escopo,
-critério de pronto). O modelo depende de como a fase é quebrada em tarefas, e quem faz
-isso é o `run-phase`, na hora de rodar, via `phase-planner`. Uma mesma fase pode ter uma
-tarefa para haiku e outra para opus.
+**It is not in `PLAN.md`**, on purpose. The plan describes only phases (goal, scope,
+done criteria). The model depends on how the phase is broken into tasks, and that is done by
+`run-phase`, at run time, via `phase-planner`. The same phase can have one task for haiku and another for opus.
 
-A pontuação usa dois eixos:
+The scoring uses two axes:
 
-- **Volume (V)** escolhe o modelo: 0–2 haiku → `implementer-fast`; 3–5 sonnet →
-  `implementer`; 6+ opus → `architect` gera o spec e `implementer` implementa.
-- **Raciocínio (R)** escolhe o effort: `medium` → `xhigh`.
+- **Volume (V)** chooses the model: 0–2 haiku → `implementer-fast`; 3–5 sonnet →
+  `implementer`; 6+ opus → `architect` writes the spec and `implementer` implements it.
+- **Reasoning (R)** chooses the effort: `medium` → `xhigh`.
 
-Detalhes em [docs/best-practices/model-selection.md](docs/best-practices/model-selection.md).
-Formato de retorno dos agentes (o que cada um devolve, com teto de linhas) em
+Details in [docs/best-practices/model-selection.md](docs/best-practices/model-selection.md).
+Return format of the agents (what each one returns, with a line cap) in
 [docs/best-practices/output-contract.md](docs/best-practices/output-contract.md).
 
-\* `architect` e `phase-planner` usam `model: inherit`: pedem opus quando a conta tem e
-caem em `sonnet` + `effort: xhigh` quando não, sempre avisando qual tarefa foi rebaixada.
+\* `architect` and `phase-planner` use `model: inherit`: they ask for opus when the account has it and
+fall back to `sonnet` + `effort: xhigh` when it doesn't, always warning which task was downgraded.
 
-## Review por projeto
+## Review per project
 
-A skill `pr-review` é uma só; o que muda é `<projeto>/.claude/review-rules.md`.
-Comece copiando o modelo da stack (`templates/review-rules/`) ou rode
-`/project-skill-bootstrap` no projeto. O review é estático: lê regras + diff,
-nunca sobe app, Docker ou banco.
+The `pr-review` skill is a single one; what changes is `<project>/.claude/review-rules.md`.
+Start by copying the model for the stack (`templates/review-rules/`) or run
+`/project-skill-bootstrap` in the project. The review is static: it reads rules + diff,
+and never starts the app, Docker or the database.
 
-## Estrutura
+## Structure
 
 ```
-skills/                  # skills globais (instaláveis em ~/.claude/skills)
-  project-start/         # começa um app do zero com o fluxo; sem argumento diz "onde estou"
-  plan-create/           # cria docs/PLANO.md em fases, no formato que run-phase consome
-  jira-plan/             # idem, a partir de uma task do Jira + subtasks
-  run-phase/             # executa fase(s) de um plano, escolhendo modelo e effort por tarefa
-  pr-create/             # abre PR padronizado (branch, conventional commits, descrição)
-  pr-review/             # revisa PR contra padrões do projeto
-  frontend-component/    # cria componente React com teste, a11y e padrões
-  project-skill-bootstrap/  # gera CLAUDE.md, review-rules.md e skills próprias de um projeto
-agents/                  # subagents (instaláveis em ~/.claude/agents)
-  phase-planner.md       # opus*  — quebra uma fase em tarefas + atribui modelo/effort
-  implementer-fast.md    # haiku  — tarefas mecânicas
-  implementer.md         # sonnet — feature padrão
-  architect.md           # opus*  — design, dados, decisões difíceis
-  pr-reviewer.md         # revisão read-only
-templates/project/       # esqueleto .claude/ + docs/WORKFLOW.md (estado e ciclo) para projeto novo
-templates/review-rules/  # regras de PR por stack: nestjs.md, spring.md, react.md
+skills/                  # global skills (installable in ~/.claude/skills)
+  project-start/         # starts an app from scratch with the flow; without an argument says "where am I"
+  plan-create/           # creates docs/PLAN.md in phases, in the format run-phase consumes
+  jira-plan/             # same, from a Jira task + subtasks
+  run-phase/             # runs phase(s) of a plan, choosing model and effort per task
+  pr-create/             # opens a standardized PR (branch, conventional commits, description)
+  pr-review/             # reviews a PR against the project's standards
+  frontend-component/    # creates a React component with a test, a11y and standards
+  project-skill-bootstrap/  # generates CLAUDE.md, review-rules.md and a project's own skills
+agents/                  # subagents (installable in ~/.claude/agents)
+  phase-planner.md       # opus*  — breaks a phase into tasks + assigns model/effort
+  implementer-fast.md    # haiku  — mechanical tasks
+  implementer.md         # sonnet — standard feature
+  architect.md           # opus*  — design, data, hard decisions
+  pr-reviewer.md         # read-only review
+templates/project/       # .claude/ skeleton + docs/WORKFLOW.md (state and cycle) for a new project
+templates/review-rules/  # PR rules per stack: nestjs.md, spring.md, react.md
 docs/flow.svg           # flow diagram (used above)
-docs/best-practices/     # guias: skills, subagents, worktrees, seleção de modelo, workflows
-notes/                   # avaliações de projetos (ex.: notebook-monitor)
-scripts/install.sh       # symlink de skills/agents para ~/.claude
+docs/best-practices/     # guides: skills, subagents, worktrees, model selection, workflows
+notes/                   # project evaluations (e.g. notebook-monitor)
+scripts/install.sh       # symlinks skills/agents into ~/.claude
 ```
 
-## Estado e lacunas conhecidas
+## State and known gaps
 
-- **Fluxo ainda não validado de ponta a ponta.** Cada peça funciona isolada; para testar,
-  rode o [Uso rápido](#uso-rápido) num app descartável.
-- **A decisão do `--dry-run` não é persistida.** A tabela de modelos existe só no chat;
-  uma flag `--annotate` deveria gravar modelo e lotes dentro da fase no `PLANO.md`.
-- **Passo 7 tem dois reviews sem ordem definida.** `/pr-review` (padrões do projeto) e
-  `/code-review` (bugs de correção) são complementares, mas a ordem não está documentada
-  dentro da skill.
-- **O plano é marcado cedo.** O `run-phase` marca tarefas concluídas na abertura do PR,
-  não no merge; falta um gatilho pós-merge.
+- **Flow not yet validated end to end.** Each piece works in isolation; to test it,
+  run the [Quick start](#quick-start) on a throwaway app.
+- **The `--dry-run` decision is not persisted.** The model table exists only in the chat;
+  a `--annotate` flag should write the model and batches inside the phase in `PLAN.md`.
+- **Step 7 has two reviews with no defined order.** `/pr-review` (project standards) and
+  `/code-review` (correctness bugs) are complementary, but the order is not documented
+  inside the skill.
+- **The plan is marked early.** `run-phase` marks tasks done when the PR is opened,
+  not at merge; a post-merge trigger is missing.
