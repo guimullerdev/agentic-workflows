@@ -1,51 +1,51 @@
-# Contrato de saída
+# Output contract
 
-Todo token devolvido por um subagent entra no contexto de quem chamou e é pago de
-novo a cada turno seguinte. Este contrato define o que agentes e skills devolvem.
+Every token a subagent returns enters the caller's context and is paid for again on
+every following turn. This contract defines what agents and skills return.
 
-## Regras gerais
+## General rules
 
-1. **Referência, não conteúdo.** Devolva caminhos (`arquivo:linha`), nunca código,
-   diff ou arquivo colado. Quem chamou lê o que precisar.
-2. **Saída de comando resumida.** Testes, lint e build entram como contagem e falhas:
-   `tests: 42 ok, 1 falhou — auth.test.ts:88 expected 401 got 200`. Nada de log inteiro.
-3. **Sem narrativa.** Nada de "primeiro eu li…", nada de repetir a tarefa, nada de
-   conclusão educada no fim.
-4. **Teto.** O retorno de um subagent cabe em **~20 linhas**. Passou disso, corte o
-   que quem chamou consegue obter sozinho (`git diff`, ler o arquivo).
-5. **Bloqueio vem primeiro.** Se parou por dúvida ou erro, a primeira linha diz isso.
+1. **Reference, not content.** Return paths (`file:line`), never pasted code, diffs
+   or files. The caller reads what it needs.
+2. **Summarized command output.** Tests, lint and build are reported as a count plus
+   failures: `tests: 42 ok, 1 failed — auth.test.ts:88 expected 401 got 200`. No full logs.
+3. **No narrative.** No "first I read…", no repeating the task, no polite closing.
+4. **Cap.** A subagent's return fits in **~20 lines**. If it goes over, cut whatever
+   the caller can get on its own (`git diff`, reading the file).
+5. **Blockers come first.** If you stopped because of a doubt or an error, the first
+   line says so.
 
-## Bloco padrão (agentes que alteram código)
+## Standard block (agents that change code)
 
 ```
 status: ok | falhou | bloqueado
-files: caminho/a.ts, caminho/b.ts
-tests: <N ok, M falharam> — <falhas em arquivo:linha + 1 linha de motivo>
-decisions: <só as não óbvias, 1 linha cada>   (omita se nenhuma)
-risks/doubts: <1 linha cada>                  (omita se nenhum)
+files: path/a.ts, path/b.ts
+tests: <N ok, M falharam> — <failures as file:line + 1 line of reason>
+decisions: <only the non-obvious ones, 1 line each>   (omit if none)
+risks/doubts: <1 line each>                           (omit if none)
 ```
 
-Campos vazios são omitidos, não preenchidos com "nenhum".
+Empty fields are omitted, not filled with "none".
 
-## Por agente
+## Per agent
 
 | agent | returns | cap |
 |---|---|---|
-| implementer-fast | bloco padrão sem `decisions` | ~10 linhas |
-| implementer | bloco padrão | ~20 linhas |
-| phase-planner | tabela + lotes + perguntas (já definido no agente) | a tabela |
-| architect | o spec é o produto: grave em arquivo quando houver destino e devolva o caminho + resumo de 5 linhas | spec completo só se não houver arquivo |
-| pr-reviewer | bloqueantes, sugestões, perguntas — 1 item por linha com `arquivo:linha` | sem elogios, sem resumo do diff |
+| implementer-fast | standard block without `decisions` | ~10 lines |
+| implementer | standard block | ~20 lines |
+| phase-planner | table + batches + questions (already defined in the agent) | the table |
+| architect | the spec is the product: write it to a file when a destination exists and return the path + a 5-line summary | full spec only if there is no file |
+| pr-reviewer | blockers, suggestions, questions — 1 item per line with `file:line` | no praise, no diff summary |
 
-## Lado do orquestrador (run-phase e afins)
+## Orchestrator side (run-phase and similar)
 
-- Passe ao subagent só o necessário: tarefa, arquivos, critério de pronto, comando de
-  teste e "retorne no bloco padrão". Nada de JSON bruto ou histórico da conversa.
-- Ao receber, confira com `git diff --stat` e o resultado dos testes; abra o diff
-  completo só quando algo falhou ou parece errado.
-- Para o usuário, uma linha por tarefa: `✔/✖ T<#> <agente> (<modelo>) — <resumo>`.
+- Pass the subagent only what is needed: task, files, done criteria, test command and
+  "return in the standard block". No raw JSON or conversation history.
+- On receipt, check with `git diff --stat` and the test result; open the full diff
+  only when something failed or looks wrong.
+- To the user, one line per task: `✔/✖ T<#> <agent> (<model>) — <summary>`.
 
-## Skills que falam com o usuário
+## Skills that talk to the user
 
-Resposta final curta: o que mudou, onde está (link/caminho), o que falta. Detalhe só
-quando pedido.
+Short final answer: what changed, where it is (link/path), what is left. Details only
+when asked.
