@@ -1,56 +1,57 @@
 ---
 name: pr-review
 description: >-
-  Revisa um Pull Request (ou o diff atual) contra os padrões de arquitetura,
-  patterns e convenções do projeto. Use quando o usuário pedir review de PR,
-  "avalia esse PR", "olha o PR 123", "revisa minha branch" ou digitar /pr-review.
-argument-hint: "[numero-do-pr | branch] [--comment]"
+  Reviews a Pull Request (or the current diff) against the project's
+  architecture, patterns and conventions. Use when the user asks for a PR
+  review, "review this PR", "look at PR 123", "review my branch" or types
+  /pr-review.
+argument-hint: "[pr-number | branch] [--comment]"
 allowed-tools: Bash(gh:*), Bash(git:*), Read, Grep, Glob
 ---
 
 # pr-review
 
-Análise **estática**: lê regras + diff + arquivos. Nunca sobe app, Docker, banco
-ou servidor, e não precisa entender o runtime do projeto — só se o código segue
-os patterns definidos.
+**Static** analysis: reads rules + diff + files. Never starts the app, Docker,
+a database or a server, and does not need to understand the project's runtime —
+only whether the code follows the defined patterns.
 
-## 1. Carregar as regras do projeto (nesta ordem, todas que existirem)
-1. `.claude/review-rules.md` — regras específicas (fonte principal). Seções: `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`. Aceite também os títulos legados em português: `Arquitetura`/`Arquitetura e camadas`, `Patterns obrigatórios`, `Anti-patterns (bloqueantes)`, `Testes`.
+## 1. Load the project rules (in this order, all that exist)
+1. `.claude/review-rules.md` — project-specific rules (main source). Sections: `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests`, `PR`.
 2. `CLAUDE.md`, `CONTRIBUTING.md`, `docs/adr/*`, `docs/architecture*`
-3. Configs: eslint, tsconfig, prettier (o que a ferramenta já pega, não comente)
-4. Se nada existir: use o modelo da stack em `reference/stacks/`
-   (`nestjs.md`, `spring.md`, `react.md`), ou `reference/generic-checklist.md`, e
-   avise que vale rodar `/project-skill-bootstrap`.
+3. Configs: eslint, tsconfig, prettier (what the tool already catches, do not comment on)
+4. If nothing exists: use the stack template in `reference/stacks/`
+   (`nestjs.md`, `spring.md`, `react.md`), or `reference/generic-checklist.md`, and
+   warn that running `/project-skill-bootstrap` is worthwhile.
 
-## 2. Obter o diff
-- PR: `gh pr view <n> --json title,body,files,baseRefName` e `gh pr diff <n>`
+## 2. Get the diff
+- PR: `gh pr view <n> --json title,body,files,baseRefName` and `gh pr diff <n>`
 - Branch/local: `git diff <base>...HEAD`
-Leia os arquivos inteiros quando o trecho do diff não bastar para julgar.
+Read whole files when the diff snippet is not enough to judge.
 
-## 3. Revisar (nesta prioridade)
-1. **Correção:** bugs, casos de borda, async/race, null, erros engolidos.
-2. **Arquitetura:** respeita camadas/limites definidos nas regras? Import proibido?
-3. **Patterns do projeto:** nomes, estrutura de pastas, estado, data fetching.
-4. **Testes:** cobre o comportamento novo? Teste testa comportamento, não implementação?
-5. **Front-end:** a11y, estados loading/vazio/erro, re-render, keys, memo desnecessário.
-6. **Segurança:** segredos, input não validado, XSS, dados pessoais em log.
-7. Escopo: PR mistura assuntos? Sugira dividir.
+## 3. Review (in this priority)
+1. **Correctness:** bugs, edge cases, async/race, null, swallowed errors.
+2. **Architecture:** respects the layers/boundaries defined in the rules? Forbidden import?
+3. **Project patterns:** names, folder structure, state, data fetching.
+4. **Tests:** cover the new behavior? Does the test check behavior, not implementation?
+5. **Front-end:** a11y, loading/empty/error states, re-render, keys, unnecessary memo.
+6. **Security:** secrets, unvalidated input, XSS, personal data in logs.
+7. Scope: does the PR mix concerns? Suggest splitting.
 
-## 4. Saída
+## 4. Output
 ```
-## Resumo
-<1–3 linhas + veredito: aprovar / aprovar com ajustes / pedir mudanças>
+## Summary
+<1–3 lines + verdict: approve / approve with changes / request changes>
 
-## Bloqueantes
-- `arquivo:linha` — problema — sugestão
+## Blockers
+- `file:line` — problem — suggestion
 
-## Sugestões
+## Suggestions
 - ...
 
-## Perguntas
+## Questions
 - ...
 ```
-Só aponte o que você confirmou lendo o código. Nada de estilo que o linter cobre.
+Only flag what you confirmed by reading the code. No style issues the linter covers.
 
-## 5. Postar (somente com `--comment` E confirmação do usuário)
-`gh pr review <n> --comment --body-file <tmp>` — nunca `--approve` sem pedido explícito.
+## 5. Post (only with `--comment` AND user confirmation)
+`gh pr review <n> --comment --body-file <tmp>` — never `--approve` without an explicit request.

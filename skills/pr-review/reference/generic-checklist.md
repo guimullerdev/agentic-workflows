@@ -1,14 +1,14 @@
-# Checklist genérico de review
+# Generic review checklist
 
-Use quando não houver `.claude/review-rules.md`; cobre as seções `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests` e `PR` (legado: Arquitetura, Patterns obrigatórios, Anti-patterns (bloqueantes), Testes).
+Use when there is no `.claude/review-rules.md`; covers the sections `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests` and `PR`.
 
-- [ ] O PR faz uma coisa só e o título descreve isso
-- [ ] Nomes revelam intenção; sem abreviações obscuras
-- [ ] Funções pequenas, sem efeitos colaterais escondidos
-- [ ] Erros tratados ou propagados de forma explícita
-- [ ] Sem código morto, console.log, TODO sem issue
-- [ ] Testes para o caminho feliz e para pelo menos um caso de erro
-- [ ] Sem segredos, tokens ou dados pessoais
-- [ ] Dependências novas justificadas
-- [ ] Mudanças de API/contrato documentadas
-- [ ] Front: acessível por teclado, labels, contraste, estados de loading/erro/vazio
+- [ ] The PR does one thing and the title describes it
+- [ ] Names reveal intent; no obscure abbreviations
+- [ ] Small functions, no hidden side effects
+- [ ] Errors handled or propagated explicitly
+- [ ] No dead code, console.log, or TODO without an issue
+- [ ] Tests for the happy path and at least one error case
+- [ ] No secrets, tokens or personal data
+- [ ] New dependencies justified
+- [ ] API/contract changes documented
+- [ ] Front-end: keyboard accessible, labels, contrast, loading/error/empty states
