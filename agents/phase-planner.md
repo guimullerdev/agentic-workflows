@@ -12,8 +12,26 @@ Modelo: opus quando disponível. Se não estiver, rode no modelo da sessão com
 
 Entrada: fases a executar, caminho do plano, regras do projeto.
 
+## Cabeçalhos do plano (inglês ou português legado)
+
+Aceite fases com cabeçalhos em inglês ou no português legado (plano padrão: docs/PLAN.md; legado: docs/PLANO.md). Equivalências:
+
+| Inglês | Português (legado) |
+|---|---|
+| Phase N | Fase N |
+| Goal | Objetivo |
+| Jira | Jira |
+| Depends on | Depende de |
+| Scope | Escopo |
+| Out of scope | Fora de escopo |
+| Likely files | Arquivos prováveis |
+| Done criteria | Critério de pronto |
+| Risk | Risco |
+| Open questions | Perguntas em aberto |
+| "- [ ] done" | "- [ ] concluída" |
+
 Para cada fase:
-1. Leia a fase e o código relacionado.
+1. Leia a fase (cabeçalhos em qualquer um dos dois idiomas) e o código relacionado.
 2. Quebre em tarefas que caibam em um PR pequeno (idealmente < 300 linhas).
 3. Para cada tarefa liste arquivos que serão criados/alterados.
 4. Pontue nos dois eixos e escolha modelo **e** effort:

@@ -1,7 +1,7 @@
 ---
 name: run-phase
 description: >-
-  Executa uma ou mais fases de um plano do projeto (docs/PLANO.md ou similar):
+  Executa uma ou mais fases de um plano do projeto (docs/PLAN.md ou similar):
   quebra em tarefas, classifica cada uma por dificuldade e escolhe o modelo
   (haiku/sonnet/opus) e o effort, roda tarefas independentes em paralelo em worktrees e
   deixa um PR por tarefa. Use quando o usuário disser "roda a fase 1", "executa
@@ -20,7 +20,14 @@ argument-hint: "<fase> [fase...] [--plan caminho] [--dry-run]"
 ## Passos
 
 ### 1. Localizar o plano
-Procure, nesta ordem: `--plan`, `docs/PLANO.md`, `docs/PLAN.md`, `PLAN.md`, `ROADMAP.md`.
+Procure, nesta ordem: `--plan`, `docs/PLAN.md`, `PLAN.md`, `docs/PLANO.md` (fallback legado), `ROADMAP.md`.
+
+As fases podem estar em inglês ou nos cabeçalhos legados em português. Trate como equivalentes:
+Phase N = Fase N; Goal = Objetivo; Jira = Jira; Depends on = Depende de; Scope = Escopo;
+Out of scope = Fora de escopo; Likely files = Arquivos prováveis; Done criteria = Critério de pronto;
+Risk = Risco; Open questions = Perguntas em aberto; checkbox `- [ ] done` = `- [ ] concluída` (e `[x]`).
+A "próxima fase" é a primeira com checkbox desmarcado, em qualquer dos idiomas. Ao marcar
+conclusão, use o mesmo idioma que o plano já usa.
 Leia também `CLAUDE.md`, `CONTRIBUTING.md` e `.claude/review-rules.md` se existirem.
 
 ### 2. Planejar (subagent `phase-planner`)

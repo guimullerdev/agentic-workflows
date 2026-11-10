@@ -16,7 +16,7 @@ Perdido? Rode `/project-start` (sem argumento): ele lê este arquivo e diz o pr�
 
 - [ ] 0. Ideia, stack e regras definidas — `/project-start "<ideia>"`
 - [ ] 1. Esqueleto do app rodando e testes verdes na `main`
-- [ ] 2. Plano em fases gravado em `docs/PLANO.md` — `/plan-create "<objetivo>"`
+- [ ] 2. Plano em fases gravado em `docs/PLAN.md` — `/plan-create "<objetivo>"`
 
 ## Ciclo (repete por fase até o plano acabar)
 
@@ -25,14 +25,14 @@ Perdido? Rode `/project-start` (sem argumento): ele lê este arquivo e diz o pr�
  │   4. executar a fase       /run-phase <n>            → 1 PR por tarefa
  │   5. revisar cada PR       /pr-review <pr> e /code-review high --comment
  │   6. corrigir e mergear    humano: gh pr merge
- │   7. fechar a fase         marcar [x] no PLANO.md, atualizar Estado
+ │   7. fechar a fase         marcar [x] no PLAN.md, atualizar Estado
  └── 8. próxima fase? volta ao 3.  Plano acabou? /plan-create para o próximo objetivo
 ```
 
 | Se o Estado diz… | Rode |
 |---|---|
 | Setup incompleto | `/project-start` |
-| Sem `docs/PLANO.md` | `/plan-create "<objetivo>"` |
+| Sem `docs/PLAN.md` | `/plan-create "<objetivo>"` |
 | Fase N sem tarefas classificadas | `/run-phase N --dry-run` |
 | Fase N classificada, sem PRs | `/run-phase N` |
 | PRs abertos | `/pr-review <pr>` → ajustes → merge |

@@ -1,11 +1,11 @@
 ---
 name: plan-create
 description: >-
-  Cria ou revisa o plano de fases do projeto (docs/PLANO.md) a partir de um
+  Cria ou revisa o plano de fases do projeto (docs/PLAN.md) a partir de um
   objetivo: lê o repositório, desenha as fases com escopo e critério de pronto e
   grava no formato que a skill run-phase consome. Use quando o usuário disser
   "cria o plano desse projeto", "quebra isso em fases", "monta o roadmap",
-  "preciso de um PLANO.md" ou digitar /plan-create.
+  "preciso de um PLAN.md" ou digitar /plan-create.
 argument-hint: "<objetivo em uma frase> [--plan caminho] [--phases N] [--dry-run]"
 ---
 
@@ -18,7 +18,7 @@ Planeja o projeto em **fases**. Quem planeja a fase em **tarefas** é o
 - Não implementa nada: nenhuma edição de código, nenhuma branch, nenhum PR.
 - Não grava o plano sem o usuário aprovar as fases.
 - Não inventa requisito que o usuário não disse nem o código mostra. O que for
-  suposição vai para "Perguntas em aberto", não para o escopo.
+  suposição vai para "Open questions", não para o escopo.
 - Plano existente nunca é sobrescrito em silêncio: veja o passo 5.
 
 ## Passos
@@ -56,7 +56,7 @@ perguntas em aberto. Se `--dry-run`, pare aqui e não escreva arquivo.
 O usuário pode cortar, reordenar ou fundir fases antes de gravar.
 
 ### 5. Gravar
-Destino: `--plan`, ou `docs/PLANO.md`. Formato: `reference/plan-template.md` —
+Destino: `--plan`, ou `docs/PLAN.md`. Formato: `reference/plan-template.md` —
 esse formato é o contrato com o `phase-planner`, não improvise cabeçalho.
 - Arquivo não existe → cria.
 - Arquivo existe → mostre o diff antes. Fases já marcadas `[x]` são preservadas
