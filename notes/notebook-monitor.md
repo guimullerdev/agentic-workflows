@@ -1,28 +1,27 @@
-# Avaliação — notebook-monitor (nov/2026)
+# Assessment — notebook-monitor (Nov/2026)
 
-## O que já está bom
-- Monorepo Yarn workspaces (`agent`, `backend`, `dashboard`, `shared`), CI rodando `yarn test`.
-- `CONTRIBUTING.md` claro: 1 feature = 1 PR, TDD, Conventional Commits.
-- `docs/PLANO.md` com MVP, v2 e "Fases" — base perfeita para `/run-phase`.
-- Skill de projeto `.claude/skills/commit` (branch + PR, sem atribuição de IA, merge humano).
+## What is already good
+- Yarn workspaces monorepo (`agent`, `backend`, `dashboard`, `shared`), CI running `yarn test`.
+- `CONTRIBUTING.md` is clear: 1 feature = 1 PR, TDD, Conventional Commits.
+- `docs/PLANO.md` with MVP, v2 and "Fases" — a perfect base for `/run-phase`.
+- Project skill `.claude/skills/commit` (branch + PR, no AI attribution, human merge).
 
-## Lacunas para o fluxo com agentes
-1. **Sem `CLAUDE.md`** — agentes começam sem comandos/arquitetura. Gerar com `/project-skill-bootstrap`.
-2. **Fases sem tarefas atômicas** — o PLANO descreve fases em prosa. Ideal: cada fase com
-   lista de tarefas, arquivos e critério de pronto (o `phase-planner` faz isso no 1º uso;
-   vale gravar o resultado no próprio PLANO).
-3. **Sem `.claude/review-rules.md`** — definir limites: `shared` não importa de ninguém;
-   `dashboard` só fala com `backend` via HTTP; `agent` não depende de `backend`.
-4. **Testes só em `@nm/shared`** — `yarn test` raiz roda apenas um workspace. Para agentes
-   em paralelo verificarem o próprio trabalho, cada pacote precisa de `test`.
-5. **Sem lint/typecheck** — o reviewer gasta tokens em estilo. Adicionar ESLint/Prettier.
-6. **Sem template de PR** (`.github/pull_request_template.md`).
+## Gaps for the agent workflow
+1. **No `CLAUDE.md`** — agents start without commands/architecture. Generate it with `/project-skill-bootstrap`.
+2. **Phases without atomic tasks** — the PLANO describes phases in prose. Ideal: each phase with a
+   list of tasks, files and a done criterion (the `phase-planner` does this on first use; it is worth saving the result in the PLANO itself).
+3. **No `.claude/review-rules.md`** — define limits: `shared` does not import from anyone;
+   `dashboard` only talks to `backend` via HTTP; `agent` does not depend on `backend`.
+4. **Tests only in `@nm/shared`** — root `yarn test` runs only one workspace. For agents in parallel
+   to verify their own work, each package needs a `test`.
+5. **No lint/typecheck** — the reviewer spends tokens on style. Add ESLint/Prettier.
+6. **No PR template** (`.github/pull_request_template.md`).
 
-## Sugestão de modelo por tipo de tarefa neste projeto
-| Tarefa | Modelo |
+## Suggested model per task type in this project
+| Task | Model |
 |---|---|
-| Novo campo no snapshot do agent + teste do diff | Haiku/Sonnet |
-| Nova tela/componente no dashboard | Sonnet |
-| Modelo de eventos v2 (snapshots → eventos), schema SQL | Opus → Sonnet |
-| Tempo real (push ao locador) | Opus |
-| Ajustes de docs/README/config CI | Haiku |
+| New field in the agent snapshot + diff test | Haiku/Sonnet |
+| New screen/component in the dashboard | Sonnet |
+| Event model v2 (snapshots → events), SQL schema | Opus → Sonnet |
+| Real time (push to the locador) | Opus |
+| Docs/README/CI config tweaks | Haiku |
