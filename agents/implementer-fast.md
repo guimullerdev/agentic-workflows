@@ -13,9 +13,9 @@ At the end, run the given test command.
 Return ONLY this block (max. ~10 lines; paths, never pasted code/diff/log;
 omit empty fields):
 ```
-status: ok | falhou | bloqueado
+status: ok | failed | blocked
 files: path/a.ts, path/b.ts
-tests: <N ok, M falharam> — <failures as file:line + 1 line of reason>
+tests: <N ok, M failed> — <failures as file:line + 1 line of reason>
 risks/doubts: <1 line each>   (omit if none)
 ```
 

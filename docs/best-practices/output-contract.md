@@ -18,9 +18,9 @@ every following turn. This contract defines what agents and skills return.
 ## Standard block (agents that change code)
 
 ```
-status: ok | falhou | bloqueado
+status: ok | failed | blocked
 files: path/a.ts, path/b.ts
-tests: <N ok, M falharam> — <failures as file:line + 1 line of reason>
+tests: <N ok, M failed> — <failures as file:line + 1 line of reason>
 decisions: <only the non-obvious ones, 1 line each>   (omit if none)
 risks/doubts: <1 line each>                           (omit if none)
 ```
