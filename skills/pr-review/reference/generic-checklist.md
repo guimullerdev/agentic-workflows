@@ -1,6 +1,6 @@
 # Generic review checklist
 
-Use when there is no `.claude/review-rules.md`; covers the sections `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests` and `PR`.
+Use when there is no `.claude/review-rules.md`; covers the sections `Architecture`, `Required patterns`, `Anti-patterns (blocking)`, `Tests` and `PR` (legacy Portuguese titles are equivalent: `Arquitetura` = Architecture, `Patterns obrigatórios` = Required patterns, `Anti-patterns (bloqueantes)` = Anti-patterns (blocking), `Testes` = Tests).
 
 - [ ] The PR does one thing and the title describes it
 - [ ] Names reveal intent; no obscure abbreviations
