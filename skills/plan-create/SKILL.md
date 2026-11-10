@@ -1,68 +1,68 @@
 ---
 name: plan-create
 description: >-
-  Cria ou revisa o plano de fases do projeto (docs/PLAN.md) a partir de um
-  objetivo: lê o repositório, desenha as fases com escopo e critério de pronto e
-  grava no formato que a skill run-phase consome. Use quando o usuário disser
-  "cria o plano desse projeto", "quebra isso em fases", "monta o roadmap",
-  "preciso de um PLAN.md" ou digitar /plan-create.
-argument-hint: "<objetivo em uma frase> [--plan caminho] [--phases N] [--dry-run]"
+  Creates or revises the project phase plan (docs/PLAN.md) from a goal: reads
+  the repository, designs the phases with scope and done criteria, and writes
+  them in the format the run-phase skill consumes. Use when the user says
+  "create the plan for this project", "break this into phases", "build the
+  roadmap", "I need a PLAN.md" or types /plan-create.
+argument-hint: "<goal in one sentence> [--plan path] [--phases N] [--dry-run]"
 ---
 
 # plan-create
 
-Planeja o projeto em **fases**. Quem planeja a fase em **tarefas** é o
-`phase-planner`, via `/run-phase`. Esta skill é a etapa anterior.
+Plans the project in **phases**. Planning a phase into **tasks** is done by the
+`phase-planner`, via `/run-phase`. This skill is the previous step.
 
-## Regras inegociáveis
-- Não implementa nada: nenhuma edição de código, nenhuma branch, nenhum PR.
-- Não grava o plano sem o usuário aprovar as fases.
-- Não inventa requisito que o usuário não disse nem o código mostra. O que for
-  suposição vai para "Open questions", não para o escopo.
-- Plano existente nunca é sobrescrito em silêncio: veja o passo 5.
+## Non-negotiable rules
+- Implements nothing: no code edits, no branch, no PR.
+- Does not write the plan until the user approves the phases.
+- Does not invent requirements the user did not state and the code does not show.
+  Anything assumed goes to "Open questions", not into the scope.
+- An existing plan is never silently overwritten: see step 5.
 
-## Passos
+## Steps
 
-### 1. Entender o objetivo
-Se o argumento não veio, pergunte em uma linha o que o projeto precisa entregar.
-Objetivo vago ("melhorar o app") → peça o resultado observável esperado.
+### 1. Understand the goal
+If no argument was given, ask in one line what the project needs to deliver.
+Vague goal ("improve the app") → ask for the expected observable result.
 
-### 2. Levantar o estado atual (subagent `Explore`, leitura ampla)
-Peça ao subagent, e não leia o repo você mesmo:
-- Stack, framework, comandos de teste e lint.
-- Estrutura de pastas e camadas; onde o objetivo vai encostar.
-- O que do objetivo **já existe** parcialmente (evita fase duplicada).
-- Regras já escritas: `CLAUDE.md`, `.claude/review-rules.md`, `CONTRIBUTING.md`, ADRs.
+### 2. Survey the current state (`Explore` subagent, broad reading)
+Ask the subagent, and do not read the repo yourself:
+- Stack, framework, test and lint commands.
+- Folder structure and layers; where the goal will touch.
+- What of the goal **already exists** partially (avoids a duplicate phase).
+- Rules already written: `CLAUDE.md`, `.claude/review-rules.md`, `CONTRIBUTING.md`, ADRs.
 
-Não suba app, Docker ou banco.
+Do not start the app, Docker or a database.
 
-### 3. Desenhar as fases (subagent `architect`)
-Opus quando disponível; se não estiver, chame o `architect` no modelo da sessão com
-`effort: xhigh` e avise o usuário em uma linha de que o plano saiu sem opus.
+### 3. Design the phases (`architect` subagent)
+Opus when available; if not, call the `architect` on the session model with
+`effort: xhigh` and tell the user in one line that the plan was made without opus.
 
-Entrada: objetivo, achados do passo 2, regras do projeto, `--phases` se dado.
-Critérios de uma fase boa:
-- Entrega valor sozinha e deixa a `main` verde.
-- Cabe em 1 a 5 PRs pequenos. Mais que isso → quebre em duas fases.
-- Depende no máximo da fase anterior. Dependência cruzada → reordene.
-- Tem critério de pronto **verificável** (comando, teste, comportamento observável),
-  nunca "funcionando bem".
+Input: goal, findings from step 2, project rules, `--phases` if given.
+Criteria for a good phase:
+- Delivers value on its own and leaves `main` green.
+- Fits in 1 to 5 small PRs. More than that → split into two phases.
+- Depends at most on the previous phase. Cross dependency → reorder.
+- Has a **verifiable** done criterion (command, test, observable behavior),
+  never "working well".
 
-Ordene por risco: o que derruba o resto do plano se estiver errado vem primeiro.
+Order by risk: whatever brings down the rest of the plan if wrong comes first.
 
-### 4. Confirmar com o usuário
-Mostre a lista de fases (número, objetivo, critério de pronto, dependência) e as
-perguntas em aberto. Se `--dry-run`, pare aqui e não escreva arquivo.
-O usuário pode cortar, reordenar ou fundir fases antes de gravar.
+### 4. Confirm with the user
+Show the list of phases (number, goal, done criteria, dependency) and the open
+questions. If `--dry-run`, stop here and do not write a file.
+The user may cut, reorder or merge phases before writing.
 
-### 5. Gravar
-Destino: `--plan`, ou `docs/PLAN.md`. Formato: `reference/plan-template.md` —
-esse formato é o contrato com o `phase-planner`, não improvise cabeçalho.
-- Arquivo não existe → cria.
-- Arquivo existe → mostre o diff antes. Fases já marcadas `[x]` são preservadas
-  como estão; as novas entram depois delas, renumeradas em sequência.
-- Commit só do plano, `docs:`, em branch própria. O merge é do usuário.
+### 5. Write
+Destination: `--plan`, or `docs/PLAN.md`. Format: `reference/plan-template.md` —
+this format is the contract with the `phase-planner`, do not improvise headers.
+- File does not exist → create it.
+- File exists → show the diff first. Phases already marked `[x]` are preserved
+  as they are; new ones come after them, renumbered in sequence.
+- Commit only the plan, `docs:`, on its own branch. The merge is the user's.
 
-### 6. Entregar
-Diga em uma linha qual é a próxima fase e o comando para classificá-la:
+### 6. Deliver
+Say in one line which phase is next and the command to classify it:
 `/run-phase <n> --dry-run`.
