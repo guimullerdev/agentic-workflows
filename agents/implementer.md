@@ -18,8 +18,8 @@ Retorne SOMENTE este bloco (máx. ~20 linhas; caminhos, nunca código/diff/log c
 omita campos vazios):
 ```
 status: ok | falhou | bloqueado
-arquivos: <caminhos>
-testes: <N ok, M falharam> — <falha em arquivo:linha + motivo em 1 linha>
-decisões: <só as não óbvias, 1 linha cada>
-riscos/dúvidas: <1 linha cada>
+files: <caminhos>
+tests: <N ok, M falharam> — <falha em arquivo:linha + motivo em 1 linha>
+decisions: <só as não óbvias, 1 linha cada>
+risks/doubts: <1 linha cada>
 ```

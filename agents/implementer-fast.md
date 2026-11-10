@@ -14,7 +14,7 @@ Retorne SOMENTE este bloco (máx. ~10 linhas; caminhos, nunca código/diff/log c
 omita campos vazios):
 ```
 status: ok | falhou | bloqueado
-arquivos: <caminhos>
-testes: <N ok, M falharam> — <falha em arquivo:linha + motivo em 1 linha>
-riscos/dúvidas: <1 linha cada>
+files: <caminhos>
+tests: <N ok, M falharam> — <falha em arquivo:linha + motivo em 1 linha>
+risks/doubts: <1 linha cada>
 ```
