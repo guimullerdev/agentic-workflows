@@ -14,5 +14,5 @@
 - Toda mudança via PR; branch `feat|fix|chore/<slug>`; Conventional Commits.
 - TDD: teste primeiro.
 - Plano e fases: `docs/PLAN.md`. Regras de review: `.claude/review-rules.md`.
-- Fluxo de trabalho: `docs/WORKFLOW.md`. Leia o **Estado** no início da sessão e
-  atualize Estado + Histórico ao terminar uma etapa.
+- Fluxo de trabalho: `docs/WORKFLOW.md`. Leia o **State** no início da sessão e
+  atualize State + History ao terminar uma etapa.

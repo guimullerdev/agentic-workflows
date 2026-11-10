@@ -20,7 +20,7 @@ argument-hint: "<NomeDoComponente> [descrição]"
 ## 2. Escolha de nível
 - Visual puro, igual a outro existente → simples, sem estado.
 - Com estado local / form → hook local, validação.
-- Estado compartilhado / contexto / dados do servidor → **pare e proponha** o
+- Shared state / contexto / dados do servidor → **pare e proponha** o
   desenho (onde mora o estado, contrato de dados) antes de codar. Isso é tarefa
   de nível Opus em `run-phase`.
 
