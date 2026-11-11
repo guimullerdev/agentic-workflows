@@ -52,16 +52,28 @@ Attachments and images: only mention that they exist; do not download files.
 ### 3. Check the repository state (`Explore` subagent)
 Same as step 2 of `plan-create`: stack, test and lint commands, where each subtask
 will touch code, what **already exists**, and project rules (`CLAUDE.md`,
-`.claude/review-rules.md`). Pass the subagent the summary of the subtasks, not the raw JSON.
+`.claude/review-rules.md`). Take the **Git conventions** section of `CLAUDE.md`
+(`../pr-create/reference/git-conventions.md`): `PR granularity` and `Plan` change steps 4 and 6. Pass the subagent the summary of the subtasks, not the raw JSON.
 
 ### 4. Map subtasks → phases (`architect` subagent)
 Opus when available; without opus, `architect` on the session model with `effort: xhigh`,
 telling the user in one line.
 
-Mapping rules:
+Mapping rules with `PR granularity: task` (default):
 - **Starting point: 1 subtask = 1 phase.** Merge small subtasks that only make sense
   together; split a subtask that is too big (more than 5 PRs) into two phases.
 - Each phase records `**Jira:**` with the source key(s).
+
+Mapping rules with `PR granularity: ticket` (one ticket = one PR), by the root issue type:
+- **Epic** → each child issue is a ticket: 1 child = 1 phase, `**Jira:**` = the child's key.
+  Never merge two children into one phase (it would be one PR for two tickets). A child too
+  big for one run may become two phases with the **same** key: they share the branch and the PR.
+- **Story, task, bug or any other type** → the whole issue is one ticket: preferably **one
+  phase**, `**Jira:**` = the root key. Its subtasks go into that phase's Scope (one bullet each,
+  with the subtask key for traceability), not into phases of their own. Split into more phases
+  only for order or size, always with the root key.
+
+In both modes:
 - Done criteria = the subtask's acceptance criteria, rewritten as something
   **verifiable** (command, test, behavior). Vague criteria in Jira → open question.
 - Dependencies: `is blocked by` links + what the code requires. Order by risk.
@@ -70,13 +82,15 @@ Mapping rules:
 - Gaps detected (requirement without subtask, contradictory subtask) → "Open questions".
 
 ### 5. Confirm with the user
-Show: table `Phase | Jira | Goal | Done criteria | Depends on`, the subtasks out of the
-plan, and the open questions. If `--dry-run`, stop here without writing anything.
+Show: table `Phase | Jira | Goal | Done criteria | Depends on`, and, with `ticket`,
+the PRs it implies (one per distinct key), the subtasks out of the plan, and the open questions. If `--dry-run`, stop here without writing anything.
 The user may cut, reorder or merge phases.
 
 ### 6. Write
 Follow step 5 of `plan-create` (destination, diff if it already exists, `[x]` phases
-preserved, commit only the plan on its own branch `docs/plan-<KEY>`). In the plan header:
+preserved). With `Plan: commit` (default), commit only the plan on its own branch
+`docs/plan-<KEY>`. With `Plan: local`, write the file and do not commit, branch or open a PR;
+make sure `docs/PLAN.md` is listed in `.git/info/exclude`. In the plan header:
 
 ```markdown
 # Plan — <issue title>
@@ -87,6 +101,7 @@ preserved, commit only the plan on its own branch `docs/plan-<KEY>`). In the pla
 
 ### 7. Hand off
 Tell the user the next phase and the command: `/run-phase <n> --dry-run`. `run-phase` uses
-the key from the phase's `Jira` field in the branch name and the PR title.
+the key from the phase's `Jira` field in the branch name and the PR title, following the
+project's `Branch` and `PR title` patterns.
 If the user wants to reflect the plan in Jira (comment on the issue, PR links), offer it,
 show the exact text, and only write after a yes.
