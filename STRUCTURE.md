@@ -21,7 +21,7 @@ This repository is a kit of **skills + subagents for Claude Code**. It organizes
   - breaks the phase into tasks with the `phase-planner`;
   - chooses the model and effort for each task;
   - runs in parallel, each task in a worktree;
-  - opens one PR per task;
+  - opens one PR per task, or one per ticket when the project's `CLAUDE.md` sets `PR granularity: ticket`;
   - logs each agent call.
   Its [output-contract.md](skills/run-phase/reference/output-contract.md) limits the size of what the agents return.
 - **[pr-create](skills/pr-create/SKILL.md)**: creates the branch, makes commits in Conventional Commits, pushes and opens the PR with a structured description.

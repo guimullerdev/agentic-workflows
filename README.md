@@ -30,7 +30,7 @@ Symlinks: edit here, it applies everywhere.
 /plan-create "<goal>" --dry-run           # see the phases without writing
 /plan-create "<goal>"                     # writes docs/PLAN.md
 /run-phase 1 --dry-run                    # see tasks, model and effort of each one
-/run-phase 1                              # runs: 1 worktree and 1 PR per task
+/run-phase 1                              # runs: 1 worktree and 1 PR per task (or per ticket, see below)
 ```
 
 **Project that already has code:** replace the first step with `/project-skill-bootstrap`
@@ -48,6 +48,21 @@ task and its subtasks and writes the same `docs/PLAN.md`, with the Jira key on e
 
 Requires the Atlassian MCP connected (or an authenticated `acli`/`jira` CLI). The skill only
 **reads** Jira; writing there (comment, transition) only on your request and with confirmation.
+
+**Team conventions (one PR per ticket, branch pattern):** declare them in the project's
+`CLAUDE.md`, and `jira-plan`, `run-phase` and `pr-create` follow them:
+
+```markdown
+## Git conventions
+- PR granularity: ticket          # task (default) | ticket
+- Branch: {key}/{slug}            # → PROJ-123/add-login-form
+- PR title: {key} {type}: {summary}
+- Plan: local                     # commit (default) | local: docs/PLAN.md never goes into a PR
+```
+
+With `ticket`, an epic becomes one PR per child issue, and any other type (story, task, bug)
+becomes a single PR with its subtasks inside, one commit per task. Fields, placeholders and
+defaults: [`git-conventions.md`](skills/pr-create/reference/git-conventions.md).
 
 **Lost?** `/project-start` without an argument reads `docs/WORKFLOW.md` and tells you which stage
 you are in and what the next command is. Run each stage in a new session so you don't carry over context.
@@ -67,8 +82,8 @@ headers (`## Phase N — <title>`), since `run-phase` only reads `docs/PLAN.md`.
 | 2 | Review the proposed phases, without writing anything | `/plan-create "<goal>" --dry-run` | `architect` (opus\*) |
 | 3 | Write `docs/PLAN.md` | `/plan-create "<goal>"` or `/jira-plan <KEY>` | `architect` (opus\*) |
 | 4 | Break the phase into tasks and choose model + effort, without executing | `/run-phase <phase> --dry-run` | `phase-planner` (opus\*) |
-| 5 | Execute the phase in parallel batches, 1 worktree per task | `/run-phase <phase>` | `implementer-fast` / `implementer` / `architect` |
-| 6 | Open one PR per task (1 task = 1 branch = 1 PR) | `/pr-create` | skill (called by `run-phase`) |
+| 5 | Execute the phase in parallel batches, 1 worktree per task (per ticket with `PR granularity: ticket`) | `/run-phase <phase>` | `implementer-fast` / `implementer` / `architect` |
+| 6 | Open one PR per task, or per ticket (see Git conventions) | `/pr-create` | skill (called by `run-phase`) |
 | 7 | Review against `.claude/review-rules.md` and hunt for bugs | `/pr-review <n>`, `/code-review high --comment` | `pr-reviewer` + native review |
 | 8 | Merge and mark the phase as done in the plan | `gh pr merge` | always human |
 

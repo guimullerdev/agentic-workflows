@@ -61,7 +61,11 @@ this format is the contract with the `phase-planner`, do not improvise headers.
 - File does not exist → create it.
 - File exists → show the diff first. Phases already marked `[x]` are preserved
   as they are; new ones come after them, renumbered in sequence.
-- Commit only the plan, `docs:`, on its own branch. The merge is the user's.
+- `Plan: commit` (default, from the **Git conventions** in `CLAUDE.md`; see
+  `../pr-create/reference/git-conventions.md`) → commit only the plan, `docs:`, on its own
+  branch. The merge is the user's.
+- `Plan: local` → write the file only: no commit, branch or PR; make sure `docs/PLAN.md` is
+  listed in `.git/info/exclude`.
 
 ### 6. Deliver
 Say in one line which phase is next and the command to classify it:

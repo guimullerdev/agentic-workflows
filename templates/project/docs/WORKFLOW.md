@@ -22,7 +22,7 @@ Lost? Run `/project-start` (no argument): it reads this file and tells you the n
 
 ```
  ┌─▶ 3. classify the phase    /run-phase <n> --dry-run
- │   4. run the phase         /run-phase <n>            → 1 PR per task
+ │   4. run the phase         /run-phase <n>            → 1 PR per task/ticket
  │   5. review each PR        /pr-review <pr> and /code-review high --comment
  │   6. fix and merge         human: gh pr merge
  │   7. close the phase       mark [x] in PLAN.md, update State

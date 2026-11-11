@@ -12,7 +12,9 @@ git worktree remove ../app-wt/feat-badge
 In Claude Code: `isolation: "worktree"` in the Agent tool, or `claude --worktree`.
 
 ## Rules
-1. **One task = one worktree = one branch = one PR.**
+1. **One task = one worktree = one branch = one PR.** Exception: with `PR granularity: ticket`
+   (project `CLAUDE.md`), one ticket = one worktree = one branch = one PR, and the ticket's
+   tasks run in sequence inside it, one commit each.
 2. Split by **file boundary**: if two tasks touch the same file, they are not parallel — serialize them.
 3. Integration: merge the PRs in dependency order; rebase the rest.
 4. Clean up: `git worktree prune` after the merge.
